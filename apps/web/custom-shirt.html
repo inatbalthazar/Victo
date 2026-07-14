@@ -3,386 +3,306 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VICTO - สั่งทำเสื้อทีม</title>
+  <title>VICTO — เครื่องมือออกแบบเสื้อทีม</title>
+  <meta name="description" content="ออกแบบเสื้อทีมของคุณ: อัปโหลดอาร์ตเวิร์ก เพิ่มข้อความ เลือกสีและไซส์ พรีวิวสดแบบเรียลไทม์">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Bebas+Neue&family=Pacifico&family=Anton&family=Archivo+Black&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/custom-shirt.css">
 </head>
 <body>
 
-  <!-- Top Nav -->
-  <nav class="top-nav">
-    <div class="container">
-      <a href="/" class="nav-logo"><img src="assets/logo.svg" alt="VICTO" height="28"></a>
-      <div class="nav-links">
-        <a href="/">หน้าแรก</a>
-        <a href="/" onclick="localStorage.setItem('filter','apparel')">สินค้าทั้งหมด</a>
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="/" class="brand" aria-label="VICTO หน้าแรก">
+        <span class="brand-mark">V</span><span class="brand-name">VICTO</span>
+      </a>
+      <nav class="cs-nav-links" aria-label="เมนู">
+        <a href="index.html">หน้าแรก</a>
+        <a href="index.html#how">วิธีสั่งทำ</a>
+        <a href="index.html#faq">คำถาม</a>
         <a href="erp.html">เข้าสู่ระบบ</a>
-      </div>
+      </nav>
+      <a href="index.html" class="btn btn-ghost btn-sm"><i class="fas fa-arrow-left"></i> กลับหน้าแรก</a>
     </div>
-  </nav>
+  </header>
 
-  <!-- Hero -->
-  <section class="cs-hero">
-    <div class="container">
-      <div class="cs-hero-text">
-        <h1>สั่งทำเสื้อทีม<br><span>ออกแบบเองได้ตามใจ</span></h1>
-        <p>เลือกสี เลือกลาย อัพโหลดโลโก้ เพิ่มชื่อ-เบอร์เสื้อ พร้อมสกรีนคุณภาพสูง ไม่มีขั้นต่ำ</p>
-        <div class="cs-hero-features">
-          <span><i class="fas fa-paint-brush"></i> ออกแบบฟรี</span>
-          <span><i class="fas fa-truck"></i> ส่งฟรี超过฿2,000</span>
-          <span><i class="fas fa-clock"></i> ผลิต 3-5 วัน</span>
-        </div>
-        <a href="#designer" class="cs-hero-btn">เริ่มออกแบบเลย <i class="fas fa-arrow-down"></i></a>
-      </div>
-      <div class="cs-hero-image">
-        <div class="hero-jersey-preview" id="heroPreview">
-          <div class="hero-jersey-body" style="background:#2d3436;">
-            <div class="hero-jersey-collar"></div>
-            <div class="hero-jersey-sleeve-l"></div>
-            <div class="hero-jersey-sleeve-r"></div>
-            <div class="hero-jersey-number" style="color:#fff;">10</div>
-            <div class="hero-jersey-text" style="color:#fff;">CUSTOM</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- ============ DESIGNER ============ -->
+  <main class="designer" id="designer">
+    <div class="orb violet" style="width:420px;height:420px;top:-100px;right:-80px;opacity:.3;"></div>
+    <div class="orb cyan" style="width:340px;height:340px;bottom:-120px;left:-60px;opacity:.22;"></div>
 
-  <!-- How It Works -->
-  <section class="cs-steps">
-    <div class="container">
-      <h2>วิธีสั่งทำเสื้อทีม</h2>
-      <div class="steps-grid">
-        <div class="step-card">
-          <div class="step-num">1</div>
-          <div class="step-icon"><i class="fas fa-tshirt"></i></div>
-          <h3>เลือกแบบเสื้อ</h3>
-          <p>เลือกประเภทเสื้อ คอกลม โปโล หรือเสื้อกีฬา พร้อมสีและไซส์</p>
-        </div>
-        <div class="step-card">
-          <div class="step-num">2</div>
-          <div class="step-icon"><i class="fas fa-pencil-ruler"></i></div>
-          <h3>ออกแบบลาย</h3>
-          <p>เพิ่มโลโก้ทีม ชื่อผู้เล่น เบอร์เสื้อ และสีที่ต้องการ</p>
-        </div>
-        <div class="step-card">
-          <div class="step-num">3</div>
-          <div class="step-icon"><i class="fas fa-shopping-cart"></i></div>
-          <h3>สั่งซื้อ</h3>
-          <p>ตรวจสอบแบบ ยืนยันคำสั่งซื้อ เราผลิตและจัดส่งให้ถึงมือ</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    <div class="container designer-grid">
 
-  <!-- Designer Section -->
-  <section class="cs-designer" id="designer">
-    <div class="container">
-      <h2>ออกแบบเสื้อทีมของคุณ</h2>
-      <p class="designer-sub">ปรับแต่งทุกรายละเอียด แล้วกดสั่งทำได้เลย</p>
+      <!-- ── PREVIEW PANEL ── -->
+      <section class="preview-panel" id="previewPanel">
+        <div class="preview-stage glass" id="previewStage">
+          <!-- T-shirt SVG -->
+          <svg class="shirt-svg" id="shirtSvg" viewBox="0 0 400 440" preserveAspectRatio="xMidYMid meet" aria-label="พรีวิวเสื้อ">
+            <defs>
+              <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#000" flood-opacity="0.45"/>
+              </filter>
+            </defs>
+            <!-- Shirt body path (front) -->
+            <path id="shirtFrontPath" class="shirt-body"
+                  d="M140 60 L100 80 L60 150 L100 170 L100 380 L300 380 L300 170 L340 150 L300 80 L260 60 L240 90 C220 108 180 108 160 90 Z"
+                  fill="#1f2937" filter="url(#softShadow)"/>
+            <!-- Collar -->
+            <path id="shirtCollar" class="shirt-collar"
+                  d="M160 90 C180 108 220 108 240 90"
+                  fill="none" stroke="rgba(0,0,0,0.28)" stroke-width="3"/>
+            <!-- Stitch line -->
+            <path d="M100 170 L100 380 M300 170 L300 380"
+                  fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1.5" stroke-dasharray="3 3"/>
+          </svg>
 
-      <div class="designer-layout">
-        <!-- Preview Panel -->
-        <div class="preview-panel">
-          <div class="jersey-preview" id="jerseyPreview">
-            <div class="jersey-body" id="jerseyBody">
-              <div class="jersey-collar" id="jerseyCollar"></div>
-              <div class="jersey-sleeve-l"></div>
-              <div class="jersey-sleeve-r"></div>
-              <div class="jersey-front-design">
-                <div class="jersey-logo-area" id="jerseyLogoArea"></div>
-                <div class="jersey-team-name" id="jerseyTeamName">TEAM NAME</div>
-              </div>
-              <div class="jersey-back-design" id="jerseyBack" style="display:none;">
-                <div class="jersey-player-name" id="jerseyPlayerName">PLAYER</div>
-                <div class="jersey-number" id="jerseyNumber">10</div>
-              </div>
+          <!-- Print area + design layer (where draggable elements live) -->
+          <div class="print-area" id="printArea" aria-label="พื้นที่พิมพ์ลาย">
+            <div class="print-hint" id="printHint">
+              <i class="fas fa-arrow-up"></i>
+              <span>เพิ่มข้อความหรืออัปโหลดรูปเพื่อเริ่มออกแบบ</span>
             </div>
+            <div class="design-layer" id="designLayer"></div>
           </div>
-          <div class="preview-controls">
-            <button class="preview-btn active" onclick="showSide('front')">ด้านหน้า</button>
-            <button class="preview-btn" onclick="showSide('back')">ด้านหลัง</button>
+
+          <!-- Side toggle -->
+          <div class="side-toggle">
+            <button class="side-btn active" data-side="front">ด้านหน้า</button>
+            <button class="side-btn" data-side="back">ด้านหลัง</button>
           </div>
         </div>
 
-        <!-- Controls Panel -->
-        <div class="controls-panel">
-          <!-- Shirt Style -->
-          <div class="control-group">
-            <label><i class="fas fa-tshirt"></i> ประเภทเสื้อ</label>
-            <div class="style-options">
-              <button class="style-btn active" onclick="selectStyle('tee', this)">
-                <span class="style-icon">👕</span>
-                <span>คอกลม</span>
+        <!-- Quick info under preview -->
+        <div class="preview-info">
+          <div class="info-item">
+            <span class="info-label">แบบเสื้อ</span>
+            <span class="info-value" id="infoStyle">คอกลม</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">สีเสื้อ</span>
+            <span class="info-swatch" id="infoSwatch"></span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">เลเยอร์</span>
+            <span class="info-value" id="infoLayers">0</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── CONTROLS PANEL ── -->
+      <section class="controls-panel">
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+          <button class="tab active" data-tab="style" role="tab"><i class="fas fa-tshirt"></i> รูปแบบ</button>
+          <button class="tab" data-tab="art" role="tab"><i class="fas fa-image"></i> อาร์ตเวิร์ก</button>
+          <button class="tab" data-tab="text" role="tab"><i class="fas fa-font"></i> ข้อความ</button>
+          <button class="tab" data-tab="order" role="tab"><i class="fas fa-shopping-bag"></i> สั่งซื้อ</button>
+        </div>
+
+        <!-- TAB: Style -->
+        <div class="tab-pane active" data-pane="style">
+          <div class="field">
+            <label class="field-label"><i class="fas fa-tshirt"></i> ประเภทเสื้อ</label>
+            <div class="style-grid" id="styleGrid">
+              <button class="style-card active" data-style="tee" data-name="คอกลม">
+                <span class="style-glyph">👕</span><span>Tee</span>
               </button>
-              <button class="style-btn" onclick="selectStyle('polo', this)">
-                <span class="style-icon">👔</span>
-                <span>โปโล</span>
+              <button class="style-card" data-style="polo" data-name="โปโล">
+                <span class="style-glyph">👔</span><span>Polo</span>
               </button>
-              <button class="style-btn" onclick="selectStyle('tank', this)">
-                <span class="style-icon">🎽</span>
-                <span>สายเดี่ยว</span>
+              <button class="style-card" data-style="tank" data-name="สายเดี่ยว">
+                <span class="style-glyph">🎽</span><span>Tank</span>
               </button>
-              <button class="style-btn" onclick="selectStyle('longsleeve', this)">
-                <span class="style-icon">🧥</span>
-                <span>แขนยาว</span>
+              <button class="style-card" data-style="long" data-name="แขนยาว">
+                <span class="style-glyph">🧥</span><span>Long</span>
               </button>
             </div>
           </div>
 
-          <!-- Color -->
-          <div class="control-group">
-            <label><i class="fas fa-palette"></i> สีเสื้อ</label>
-            <div class="color-options" id="colorOptions">
-              <button class="color-btn active" style="background:#2d3436;" onclick="selectColor('#2d3436','#dfe6e9',this)" title="ดำ"></button>
-              <button class="color-btn" style="background:#fff;border:2px solid #ddd;" onclick="selectColor('#ffffff','#2d3436',this)" title="ขาว"></button>
-              <button class="color-btn" style="background:#e74c3c;" onclick="selectColor('#e74c3c','#ffffff',this)" title="แดง"></button>
-              <button class="color-btn" style="background:#2980b9;" onclick="selectColor('#2980b9','#ffffff',this)" title="น้ำเงิน"></button>
-              <button class="color-btn" style="background:#27ae60;" onclick="selectColor('#27ae60','#ffffff',this)" title="เขียว"></button>
-              <button class="color-btn" style="background:#f39c12;" onclick="selectColor('#f39c12','#ffffff',this)" title="ส้ม"></button>
-              <button class="color-btn" style="background:#8e44ad;" onclick="selectColor('#8e44ad','#ffffff',this)" title="ม่วง"></button>
-              <button class="color-btn" style="background:#1abc9c;" onclick="selectColor('#1abc9c','#ffffff',this)" title="เขียวอมฟ้า"></button>
-              <button class="color-btn" style="background:#e91e63;" onclick="selectColor('#e91e63','#ffffff',this)" title="ชมพู"></button>
-              <button class="color-btn" style="background:#607d8b;" onclick="selectColor('#607d8b','#ffffff',this)" title="เทา"></button>
+          <div class="field">
+            <label class="field-label"><i class="fas fa-palette"></i> สีเสื้อ</label>
+            <div class="swatch-grid" id="swatchGrid"></div>
+          </div>
+
+          <div class="field">
+            <label class="field-label"><i class="fas fa-info-circle"></i> เกี่ยวกับผ้า</label>
+            <div class="fabric-note glass">
+              <strong>Cotton 100% เกรดพรีเมียม</strong>
+              <span>นุ่ม · ระบายอากาศดี · ทรง Unisex</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: Artwork -->
+        <div class="tab-pane" data-pane="art">
+          <div class="upload-zone" id="uploadZone" tabindex="0" role="button" aria-label="อัปโหลดรูป">
+            <input type="file" id="artUpload" accept="image/png,image/jpeg,image/svg+xml" hidden>
+            <i class="fas fa-cloud-upload-alt"></i>
+            <strong>คลิกหรือลากไฟล์มาวาง</strong>
+            <span>เพื่ออัปโหลดอาร์ตเวิร์กของคุณ</span>
+            <small>PNG / JPG / SVG · ไม่เกิน 5MB · พื้น transparent แนะนำ</small>
+          </div>
+
+          <div class="field">
+            <label class="field-label"><i class="fas fa-layer-group"></i> เลเยอร์ทั้งหมด</label>
+            <div class="layer-list" id="layerList">
+              <div class="layer-empty">ยังไม่มีเลเยอร์ — เริ่มจากการเพิ่มข้อความหรืออัปโหลดรูป</div>
             </div>
           </div>
 
-          <!-- Team Name -->
-          <div class="control-group">
-            <label><i class="fas fa-users"></i> ชื่อทีม</label>
-            <input type="text" id="teamNameInput" class="text-input" placeholder="เช่น THUNDER WOLVES" oninput="updatePreview()" maxlength="20">
+          <div class="field" id="selectedTools" hidden>
+            <label class="field-label"><i class="fas fa-sliders-h"></i> ปรับเลเยอร์ที่เลือก</label>
+            <div class="quick-tools glass">
+              <button class="tool-btn" id="toolScaleUp" title="ขยาย"><i class="fas fa-search-plus"></i></button>
+              <button class="tool-btn" id="toolScaleDown" title="ย่อ"><i class="fas fa-search-minus"></i></button>
+              <button class="tool-btn" id="toolRotateL" title="หมุนซ้าย"><i class="fas fa-undo"></i></button>
+              <button class="tool-btn" id="toolRotateR" title="หมุนขวา"><i class="fas fa-redo"></i></button>
+              <button class="tool-btn" id="toolFront" title="ยกขึ้นหน้า"><i class="fas fa-arrow-up"></i></button>
+              <button class="tool-btn" id="toolBack" title="ลงไปหลัง"><i class="fas fa-arrow-down"></i></button>
+              <button class="tool-btn danger" id="toolDelete" title="ลบ"><i class="fas fa-trash"></i></button>
+            </div>
           </div>
+        </div>
 
-          <!-- Player Name -->
-          <div class="control-group">
-            <label><i class="fas fa-user"></i> ชื่อผู้เล่น (ด้านหลัง)</label>
-            <input type="text" id="playerNameInput" class="text-input" placeholder="เช่น SOMCHAI" oninput="updatePreview()" maxlength="15">
+        <!-- TAB: Text -->
+        <div class="tab-pane" data-pane="text">
+          <div class="field">
+            <label class="field-label" for="textInput"><i class="fas fa-keyboard"></i> ข้อความ</label>
+            <input type="text" id="textInput" class="text-input" placeholder="เช่น TEAM VICTO" maxlength="30">
           </div>
+          <div class="field">
+            <label class="field-label"><i class="fas fa-font"></i> ฟอนต์</label>
+            <div class="font-grid" id="fontGrid"></div>
+          </div>
+          <div class="field">
+            <label class="field-label"><i class="fas fa-palette"></i> สีตัวอักษร</label>
+            <div class="swatch-grid text-colors" id="textColorGrid"></div>
+          </div>
+          <button class="btn btn-cool btn-block" id="addTextBtn"><i class="fas fa-plus"></i> เพิ่มข้อความ</button>
+        </div>
 
-          <!-- Number -->
-          <div class="control-group">
-            <label><i class="fas fa-hashtag"></i> เบอร์เสื้อ</label>
-            <div class="number-input-wrap">
-              <button class="num-btn" onclick="changeNumber(-1)">-</button>
-              <input type="number" id="numberInput" class="number-input" value="10" min="0" max="99" oninput="updatePreview()">
-              <button class="num-btn" onclick="changeNumber(1)">+</button>
+        <!-- TAB: Order -->
+        <div class="tab-pane" data-pane="order">
+          <div class="field">
+            <label class="field-label"><i class="fas fa-ruler"></i> ไซส์</label>
+            <div class="size-grid" id="sizeGrid"></div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="qtyInput"><i class="fas fa-boxes"></i> จำนวนต่อไซส์</label>
+            <div class="qty-row">
+              <button class="qty-btn" id="qtyMinus">−</button>
+              <input type="number" id="qtyInput" class="qty-input" value="10" min="1" max="9999">
+              <button class="qty-btn" id="qtyPlus">+</button>
             </div>
           </div>
 
-          <!-- Logo Upload -->
-          <div class="control-group">
-            <label><i class="fas fa-image"></i> โลโก้ทีม</label>
-            <div class="upload-area" id="uploadArea" onclick="document.getElementById('logoUpload').click()">
-              <input type="file" id="logoUpload" accept="image/*" style="display:none" onchange="handleLogoUpload(event)">
-              <div class="upload-placeholder" id="uploadPlaceholder">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <span>คลิกเพื่ออัพโหลดโลโก้</span>
-                <small>PNG, JPG ขนาดไม่เกิน 5MB</small>
-              </div>
-              <img id="logoPreview" class="logo-preview" style="display:none;">
-            </div>
-            <button class="remove-logo-btn" id="removeLogoBtn" style="display:none" onclick="removeLogo()">
-              <i class="fas fa-times"></i> ลบโลโก้
-            </button>
-          </div>
-
-          <!-- Text Color -->
-          <div class="control-group">
-            <label><i class="fas fa-font"></i> สีตัวอักษร</label>
-            <div class="color-options">
-              <button class="color-btn text-color active" style="background:#ffffff;border:2px solid #ddd;" onclick="selectTextColor('#ffffff',this)" title="ขาว"></button>
-              <button class="color-btn text-color" style="background:#2d3436;" onclick="selectTextColor('#2d3436',this)" title="ดำ"></button>
-              <button class="color-btn text-color" style="background:#f1c40f;" onclick="selectTextColor('#f1c40f',this)" title="เหลือง"></button>
-              <button class="color-btn text-color" style="background:#e74c3c;" onclick="selectTextColor('#e74c3c',this)" title="แดง"></button>
-              <button class="color-btn text-color" style="background:#2ecc71;" onclick="selectTextColor('#2ecc71',this)" title="เขียว"></button>
-            </div>
-          </div>
-
-          <!-- Sizes -->
-          <div class="control-group">
-            <label><i class="fas fa-ruler"></i> ไซส์ที่ต้องการ</label>
-            <div class="size-options" id="sizeOptions">
-              <label class="size-check"><input type="checkbox" value="XS"><span>XS</span></label>
-              <label class="size-check"><input type="checkbox" value="S"><span>S</span></label>
-              <label class="size-check"><input type="checkbox" value="M" checked><span>M</span></label>
-              <label class="size-check"><input type="checkbox" value="L" checked><span>L</span></label>
-              <label class="size-check"><input type="checkbox" value="XL"><span>XL</span></label>
-              <label class="size-check"><input type="checkbox" value="2XL"><span>2XL</span></label>
-              <label class="size-check"><input type="checkbox" value="3XL"><span>3XL</span></label>
-            </div>
-          </div>
-
-          <!-- Quantity -->
-          <div class="control-group">
-            <label><i class="fas fa-box"></i> จำนวน (ต่อไซส์)</label>
-            <input type="number" id="qtyPerSize" class="text-input" value="10" min="1" max="9999" oninput="updatePrice()">
-          </div>
-
-          <!-- Price Summary -->
-          <div class="price-summary">
+          <div class="price-card glass">
             <div class="price-row">
-              <span>ราคาต่อชิ้น</span>
+              <span>ราคาต่อตัว</span>
               <span id="unitPrice">฿120</span>
             </div>
             <div class="price-row">
-              <span>จำนวนไซส์ที่เลือก</span>
+              <span>ไซส์ที่เลือก</span>
               <span id="sizeCount">2 ไซส์</span>
             </div>
             <div class="price-row">
-              <span>จำนวนต่อไซส์</span>
-              <span id="qtyDisplay">10 ชิ้น</span>
+              <span>จำนวน/ไซส์</span>
+              <span id="qtyDisplay">10 ตัว</span>
+            </div>
+            <div class="price-row">
+              <span>รวมพิมพ์ลาย</span>
+              <span class="free">ฟรี</span>
             </div>
             <div class="price-row total">
-              <span>ราคารวม</span>
+              <span>ราคารวมทั้งหมด</span>
               <span id="totalPrice">฿2,400</span>
             </div>
-            <small class="price-note">* รวมสกรีน-ปักฟรี ไม่มีค่าบล็อก</small>
+            <small class="price-note">* รวมสกรีน–ปักฟรี ไม่มีค่าบล็อก · ยังไม่รวมค่าจัดส่ง</small>
           </div>
 
-          <!-- Order Button -->
-          <button class="order-btn" onclick="submitOrder()">
+          <button class="btn btn-primary btn-block btn-lg" id="orderBtn">
             <i class="fas fa-shopping-cart"></i> สั่งทำเสื้อนี้
           </button>
         </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ============ PRINTING METHODS ============ -->
+  <section class="section printing">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow">เทคนิคการพิมพ์</span>
+        <h2 class="section-title">เลือก<span class="grad">วิธีพิมพ์</span>ที่ใช่สำหรับงานคุณ</h2>
+      </div>
+      <div class="print-grid">
+        <article class="glass print-card reveal d1">
+          <div class="print-icon"><i class="fas fa-paint-roller"></i></div>
+          <h3>สกรีนไฮเอนด์</h3>
+          <p>เหมาะกับจำนวนมาก สีทึบ คุ้มต้นทุน ทนทาน สีไม่ซีด</p>
+        </article>
+        <article class="glass print-card reveal d2">
+          <div class="print-icon"><i class="fas fa-image"></i></div>
+          <h3>DTF (Direct to Film)</h3>
+          <p>คุณภาพระดับภาพถ่าย ลายละเอียด รองรับไล่เฉดสี ซักทน</p>
+        </article>
+        <article class="glass print-card reveal d3">
+          <div class="print-icon"><i class="fas fa-cut"></i></div>
+          <h3>ปักโลโก้</h3>
+          <p>ลุคหรู ทนทานพิเศษ เหมาะกับฟอร์มพนักงานและยูนิฟอร์ม</p>
+        </article>
+        <article class="glass print-card reveal d4">
+          <div class="print-icon"><i class="fas fa-fire"></i></div>
+          <h3>Sublimation</h3>
+          <p>พิมพ์ทั้งตัว สีสดใส สีซึมเข้าเนื้อผ้า ไม่หลุดลอกเลย</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- Printing Methods -->
-  <section class="cs-printing">
-    <div class="container">
-      <h2>วิธีพิมพ์ลายเสื้อ</h2>
-      <div class="printing-grid">
-        <div class="print-card">
-          <img src="https://files.cdn.printful.com/o/upload/lpg-image-upload/98/w38a/98fd2a27c24b0b7e6e81ba311b2fd102__906" alt="All-over print" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="print-placeholder" style="display:none;"><i class="fas fa-print"></i></div>
-          <h3>สกรีนทั้งตัว (All-over Print)</h3>
-          <p>พิมพ์ลายได้ทุกจุดบนเสื้อ ใช้เทคนิค sublimation สีสด ไม่หลุดลอก</p>
-        </div>
-        <div class="print-card">
-          <img src="https://files.cdn.printful.com/o/upload/lpg-image-upload/06/w38a/06880e76dd2f6803b64eb29df554b86f__906" alt="Embroidery" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="print-placeholder" style="display:none;"><i class="fas fa-cut"></i></div>
-          <h3>ปัก (Embroidery)</h3>
-          <p>เพิ่มโลโก้ปัก ชื่อ หรือข้อความ ให้ลุคหรู ทนทาน ซักได้</p>
-        </div>
-        <div class="print-card">
-          <img src="https://files.cdn.printful.com/o/upload/lpg-image-upload/27/w38a/2708e7a2968d022a99765db8f69731e1__906" alt="DTF Print" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="print-placeholder" style="display:none;"><i class="fas fa-image"></i></div>
-          <h3>พิมพ์ DTF (Direct to Film)</h3>
-          <p>คุณภาพระดับภาพถ่าย รายละเอียดสูง เหมาะสำหรับลาย复杂</p>
-        </div>
+  <!-- ============ FAQ ============ -->
+  <section class="section" id="faq">
+    <div class="container faq-wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">คำถามที่พบบ่อย</span>
+        <h2 class="section-title">มีคำถาม? <span class="grad">เรามีคำตอบ</span></h2>
       </div>
-    </div>
-  </section>
-
-  <!-- Gallery -->
-  <section class="cs-gallery">
-    <div class="container">
-      <h2>ตัวอย่างผลงาน</h2>
-      <div class="gallery-grid">
-        <div class="gallery-item" style="background:linear-gradient(135deg,#2d3436,#636e72);">
-          <div class="gallery-jersey">
-            <div class="gj-body" style="background:#e74c3c;"><div class="gj-number" style="color:#fff;">7</div><div class="gj-text" style="color:#fff;">FC</div></div>
-          </div>
-          <span>เสื้อบอลทีม FC Thunder</span>
-        </div>
-        <div class="gallery-item" style="background:linear-gradient(135deg,#0984e3,#74b9ff);">
-          <div class="gallery-jersey">
-            <div class="gj-body" style="background:#2d3436;"><div class="gj-number" style="color:#f1c40f;">23</div><div class="gj-text" style="color:#f1c40f;">WOLVES</div></div>
-          </div>
-          <span>เสื้อบาสทีม Wolves</span>
-        </div>
-        <div class="gallery-item" style="background:linear-gradient(135deg,#00b894,#55efc4);">
-          <div class="gallery-jersey">
-            <div class="gj-body" style="background:#fff;"><div class="gj-number" style="color:#27ae60;">9</div><div class="gj-text" style="color:#27ae60;">RUN</div></div>
-          </div>
-          <span>เสื้อวิ่งมินิมาราธอน</span>
-        </div>
-        <div class="gallery-item" style="background:linear-gradient(135deg,#e17055,#fdcb6e);">
-          <div class="gallery-jersey">
-            <div class="gj-body" style="background:#8e44ad;"><div class="gj-number" style="color:#fff;">1</div><div class="gj-text" style="color:#fff;">VIP</div></div>
-          </div>
-          <span>เสื้อพนักงานบริษัท</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="cs-faq">
-    <div class="container">
-      <h2>คำถามที่พบบ่อย</h2>
       <div class="faq-list">
-        <div class="faq-item">
-          <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>สั่งทำเสื้อทีมขั้นต่ำกี่ตัว?</span>
-            <i class="fas fa-chevron-down"></i>
-          </div>
-          <div class="faq-a">ไม่มีขั้นต่ำ! สั่งทำ 1 ตัวก็ได้ แต่ถ้าสั่ง 25 ตัวขึ้นไปจะได้ส่วนลด bulk</div>
+        <div class="faq-item glass reveal">
+          <button class="faq-q"><span>สั่งทำเสื้อขั้นต่ำกี่ตัว?</span><i class="fas fa-plus"></i></button>
+          <div class="faq-a"><p>ไม่มีขั้นต่ำ! สั่งทำ 1 ตัวก็ได้ แต่ถ้าสั่ง 25 ตัวขึ้นไปจะได้ส่วนลดกลุ่ม</p></div>
         </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>ใช้เวลาผลิตนานแค่ไหน?</span>
-            <i class="fas fa-chevron-down"></i>
-          </div>
-          <div class="faq-a">เสื้อสกรีนใช้เวลา 3-5 วันทำการ เสื้อปักใช้เวลา 5-7 วันทำการ หลังจากยืนยันแบบ</div>
+        <div class="faq-item glass reveal">
+          <button class="faq-q"><span>ใช้เวลาผลิตนานแค่ไหน?</span><i class="fas fa-plus"></i></button>
+          <div class="faq-a"><p>เสื้อสกรีน 3–5 วันทำการ เสื้อปัก 5–7 วันทำการ นับจากยืนยันแบบ</p></div>
         </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>สกรีนลายนานแค่ไหนถึงจะหลุด?</span>
-            <i class="fas fa-chevron-down"></i>
-          </div>
-          <div class="faq-a">เทคนิค sublimation สีซึมเข้าเนื้อผ้า ไม่หลุดลอก ซักได้ 100+ ครั้ง สีไม่ซีด</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>สั่งทำไซส์พิเศษได้ไหม?</span>
-            <i class="fas fa-chevron-down"></i>
-          </div>
-          <div class="faq-a">ได้! เรามีไซส์ XS ถึง 3XL หากต้องการไซส์พิเศษ更大的 ติดต่อเราโดยตรง</div>
+        <div class="faq-item glass reveal">
+          <button class="faq-q"><span>ลายพิมพ์ถือได้นานแค่ไหน?</span><i class="fas fa-plus"></i></button>
+          <div class="faq-a"><p>DTF และ Sublimation ไม่หลุดลอก ซักได้ 100+ ครั้ง สีไม่ซีด</p></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-col">
-          <div class="footer-logo"><img src="assets/logo-white.svg" alt="VICTO" height="26"></div>
-          <p>ร้านค้าสั่งทำเสื้อทีม ถ้วยรางวัล เหรียญ สายรัดข้อมือ และเข็มกลัด สำหรับทุกงานอีเวนต์</p>
-        </div>
-        <div class="footer-col">
-          <h4>สินค้า</h4>
-          <ul>
-            <li><a href="/">เสื้อทีม</a></li>
-            <li><a href="/">ถ้วยรางวัล</a></li>
-            <li><a href="/">เหรียญรางวัล</a></li>
-            <li><a href="/">สายรัดข้อมือ</a></li>
-            <li><a href="/">เข็มกลัด</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>ข้อมูล</h4>
-          <ul>
-            <li><a href="#">เกี่ยวกับเรา</a></li>
-            <li><a href="#">วิธีสั่งซื้อ</a></li>
-            <li><a href="#">นโยบายจัดส่ง</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>ติดต่อเรา</h4>
-          <ul class="footer-contact">
-            <li><i class="fas fa-phone-alt"></i> 02-123-4567</li>
-            <li><i class="fas fa-envelope"></i> info@victo.co.th</li>
-          </ul>
+      <div class="footer-row">
+        <div class="brand"><span class="brand-mark">V</span><span class="brand-name">VICTO</span></div>
+        <p>ร้านสั่งทำเสื้อทีมพิมพ์ตามสั่ง · คุณภาพพรีเมียม</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LINE"><i class="fab fa-line"></i></a>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 VICTO. All rights reserved.</p>
+        <p>&copy; 2026 VICTO · 02-123-4567 · info@victo.co.th</p>
       </div>
     </div>
   </footer>

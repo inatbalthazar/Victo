@@ -8,9 +8,10 @@ let searchQuery = '';
 
 const app = document.getElementById('app');
 
+// T-shirt-only store: apparel is the primary category.
+// Other categories (from legacy seeded data) fall back to their raw value.
 const CATEGORY_LABELS = {
-  apparel:'เสื้อผ้า', trophy:'ถ้วยรางวัล', medal:'เหรียญรางวัล',
-  wristband:'สายรัดข้อมือ', badge:'เข็มกลัด'
+  apparel: 'เสื้อผ้า'
 };
 const STATUS_LABELS = {
   pending_review:'รอตรวจสอบ', processing:'กำลังดำเนินการ', printing_3d:'พิมพ์ 3D',
@@ -34,12 +35,15 @@ function renderLogin() {
   app.innerHTML = `
     <div class="erp-login">
       <div class="erp-login-box">
-        <h1><span style="color:#00fff7">V</span><span style="color:#e8e8f0">ICTO</span> <small style="color:#ff00ff;font-size:14px">ERP</small></h1>
-        <p class="sub">ระบบจัดการร้านค้า</p>
+        <div class="erp-login-brand">
+          <span class="brand-mark">V</span>
+          <span class="brand-name">VICTO</span>
+        </div>
+        <p class="sub">ระบบจัดการร้านค้า · ERP</p>
         <form id="loginForm">
           <div class="form-group"><label>อีเมล</label><input type="email" id="email" required></div>
           <div class="form-group"><label>รหัสผ่าน</label><input type="password" id="pwd" required></div>
-          <button type="submit" class="btn btn-primary" style="width:100%;background:#ff00ff;color:#000;border:1px solid #ff00ff;box-shadow:0 0 22px #ff00ff73">เข้าสู่ระบบ</button>
+          <button type="submit" class="btn btn-green" style="width:100%;justify-content:center;padding:14px">เข้าสู่ระบบ</button>
           <div id="errMsg" class="error-msg"></div>
         </form>
       </div>
@@ -65,7 +69,7 @@ function logout() { currentUser=null; localStorage.removeItem('erp_user'); navig
 function renderNav() {
   return `
     <nav class="erp-nav">
-      <div class="erp-nav-brand"><span style="color:#00fff7">V</span>ICTO<small>ERP</small></div>
+      <div class="erp-nav-brand"><span class="brand-mark">V</span> VICTO<small>ERP</small></div>
       <div class="erp-nav-links">
         <button class="${currentPage==='dashboard'?'active':''}" onclick="navigate('dashboard')">ภาพรวม</button>
         <button class="${currentPage==='orders'?'active':''}" onclick="navigate('orders')">คำสั่งซื้อ</button>
@@ -73,9 +77,9 @@ function renderNav() {
         <button class="${currentPage==='users'?'active':''}" onclick="navigate('users')">ผู้ใช้</button>
       </div>
       <div class="erp-nav-right">
-        <span>${currentUser.username}</span>
-        <a href="index.html">หน้าร้าน</a>
-        <button onclick="logout()">ออก</button>
+        <span class="user-name"><i class="fas fa-user-circle"></i> ${currentUser.username}</span>
+        <a href="index.html"><i class="fas fa-store"></i> หน้าร้าน</a>
+        <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> ออก</button>
       </div>
     </nav>`;
 }
@@ -118,10 +122,10 @@ async function renderOrders() {
           <input class="search-input" placeholder="ค้นหาเลขที่ / ชื่อลูกค้า..." oninput="filterOrdersTable()">
           <button class="btn btn-green" onclick="exportCSV()">Export CSV</button>
         </div>
-        <div class="table-wrap"><table>
+        <div class="table-wrap"><div class="table-scroll"><table>
           <thead><tr><th>เลขที่</th><th>ลูกค้า</th><th>สถานะ</th><th>ยอดสุทธิ</th><th>ชำระเงิน</th><th>วันที่</th><th>จัดการ</th></tr></thead>
           <tbody id="orderTbody"></tbody>
-        </table></div>
+        </table></div></div>
       </div>`;
     renderOrderRows(orders);
   } catch(e) { app.innerHTML = renderNav() + '<div class="erp-content empty-state">เกิดข้อผิดพลาด</div>'; }

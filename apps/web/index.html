@@ -3,267 +3,362 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VICTO - สั่งทำเสื้อทีมและของรางวัล</title>
+  <title>VICTO — สั่งทำเสื้อทีม พิมพ์ตามสั่ง ไม่มีขั้นต่ำ</title>
+  <meta name="description" content="ออกแบบเสื้อทีมของคุณเอง อัปโหลดอาร์ตเวิร์ก เพิ่มข้อความ เลือกสีและไซส์ พิมพ์คุณภาพสูง ส่งถึงมือใน 3 วัน">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/store.css">
 </head>
 <body>
 
-  <!-- Promo Bar -->
-  <div class="promo-bar">
-    <div class="promo-bar-inner">
-      <i class="fas fa-truck"></i> ส่งฟรีเมื่อสั่งซื้อ超过 ฿2,000 &nbsp;|&nbsp;
-      <i class="fas fa-cut"></i> สกรีน-ปักฟรีทุกชิ้น &nbsp;|&nbsp;
-      <i class="fas fa-clock"></i> ผลิตภายใน 3 วันทำการ
-    </div>
-  </div>
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="/" class="brand" aria-label="VICTO หน้าแรก">
+        <span class="brand-mark">V</span>
+        <span class="brand-name">VICTO</span>
+      </a>
 
-  <!-- Header Top -->
-  <div class="header-top">
-    <div class="container">
-      <div class="header-top-left">
-        <a href="tel:02-123-4567"><i class="fas fa-phone-alt"></i> 02-123-4567</a>
-        <a href="mailto:info@victo.co.th"><i class="fas fa-envelope"></i> info@victo.co.th</a>
-      </div>
-      <div class="header-top-right">
-        <a href="erp.html"><i class="fas fa-user"></i> เข้าสู่ระบบ</a>
-        <a href="#"><i class="fas fa-shopping-bag"></i> ฿0.00 <span class="cart-count">0</span></a>
+      <nav class="nav-links" id="navLinks" aria-label="เมนูหลัก">
+        <a href="#top" class="active">หน้าแรก</a>
+        <a href="#features">ทำอะไรได้บ้าง</a>
+        <a href="#how">วิธีสั่งทำ</a>
+        <a href="#gallery">ผลงาน</a>
+        <a href="#faq">คำถาม</a>
+        <a href="custom-shirt.html" class="nav-design">ออกแบบเสื้อ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="erp.html" class="btn btn-ghost btn-sm"><i class="fas fa-user"></i> เข้าสู่ระบบ</a>
+        <a href="custom-shirt.html" class="btn btn-primary btn-sm">เริ่มออกแบบ <i class="fas fa-arrow-right"></i></a>
+        <button class="nav-burger" id="navBurger" aria-label="เปิดเมนู"><span></span><span></span><span></span></button>
       </div>
     </div>
-  </div>
+  </header>
 
-  <!-- Header Middle -->
-  <div class="header-middle">
-    <div class="container">
-      <div class="header-logo">
-        <a href="/"><img src="assets/logo.svg" alt="VICTO" height="32"></a>
-      </div>
-      <div class="header-search">
-        <form onsubmit="return false;">
-          <input type="text" id="headerSearch" placeholder="ค้นหาสินค้า..." oninput="handleSearch(this.value)">
-          <button type="submit"><i class="fas fa-search"></i></button>
-        </form>
-      </div>
-      <div class="header-contact">
-        <div class="contact-item">
-          <i class="fas fa-map-marker-alt"></i>
-          <span>กรุงเทพมหานคร</span>
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="orb violet" style="width:520px;height:520px;top:-160px;right:-120px;"></div>
+    <div class="orb cyan" style="width:380px;height:380px;bottom:-140px;left:-100px;opacity:.35;"></div>
+
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="chip accent reveal"><i class="fas fa-bolt"></i> Print-on-Demand · พิมพ์ตามสั่ง</span>
+        <h1 class="hero-title reveal d1">
+          ออกแบบเสื้อทีม<br>
+          <span class="grad-text">ของคุณเอง</span> ได้ในไม่กี่นาที
+        </h1>
+        <p class="hero-sub reveal d2">
+          อัปโหลดอาร์ตเวิร์ก เพิ่มชื่อทีม เลือกสีและไซส์
+          เราพิมพ์ด้วยเทคโนโลยีระดับภาพถ่าย ส่งถึงมือคุณภายใน 3 วันทำการ — ไม่มีขั้นต่ำ สั่ง 1 ตัวก็ได้
+        </p>
+
+        <div class="hero-cta reveal d3">
+          <a href="custom-shirt.html" class="btn btn-primary btn-lg">
+            <i class="fas fa-paint-brush"></i> เริ่มออกแบบเลย
+          </a>
+          <a href="#gallery" class="btn btn-ghost btn-lg">ดูตัวอย่างผลงาน</a>
+        </div>
+
+        <div class="hero-trust reveal d4">
+          <div class="trust-item"><i class="fas fa-check"></i> ไม่มีขั้นต่ำ</div>
+          <div class="trust-item"><i class="fas fa-check"></i> พิมพ์คุณภาพสูง</div>
+          <div class="trust-item"><i class="fas fa-check"></i> ส่งภายใน 3 วัน</div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Main Nav -->
-  <nav class="main-nav" id="mainNav">
-    <div class="container">
-      <ul class="nav-list">
-        <li><a href="/" class="nav-home"><i class="fas fa-home"></i></a></li>
-        <li><a href="custom-shirt.html"><i class="fas fa-paint-brush"></i> สั่งทำเสื้อ</a></li>
-        <li><a href="#" onclick="setFilter('trophy'); return false;">ถ้วยรางวัล</a></li>
-        <li><a href="#" onclick="setFilter('medal'); return false;">เหรียญรางวัล</a></li>
-        <li><a href="#" onclick="setFilter('wristband'); return false;">สายรัดข้อมือ</a></li>
-        <li><a href="#" onclick="setFilter('badge'); return false;">เข็มกลัด</a></li>
-        <li><a href="#" onclick="setFilter('all'); return false;">สินค้าทั้งหมด</a></li>
-      </ul>
-      <div class="nav-mobile-toggle" onclick="toggleMobileNav()">
-        <i class="fas fa-bars"></i>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero Slider -->
-  <section class="hero-slider">
-    <div class="slide active" style="background-image:url('https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=1600&h=600&fit=crop');background-size:cover;background-position:center;">
-      <div class="slide-overlay"></div>
-      <div class="container slide-inner">
-        <div class="slide-text">
-          <h2>สั่งทำเสื้อทีม<br><span>คุณภาพ premium</span></h2>
-          <p>เสื้อยืด เสื้อโปโล พร้อมสกรีนลายตามสั่ง รองรับ 1 ชิ้นถึง 10,000 ชิ้น</p>
-          <a href="custom-shirt.html" class="slide-btn">สั่งทำเสื้อเลย <i class="fas fa-arrow-right"></i></a>
+      <div class="hero-visual reveal d2">
+        <div class="hero-glow"></div>
+        <div class="hero-card glass float-slow">
+          <img src="assets/hero-shirt.svg" alt="ตัวอย่างเสื้อทีมสั่งทำ" class="hero-shirt-img">
+          <span class="hero-badge glass"><i class="fas fa-print"></i> DTF Print</span>
+          <span class="hero-badge b2 glass"><i class="fas fa-palette"></i> สีไม่จำกัด</span>
         </div>
-      </div>
-    </div>
-    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1461896836934-bd45ba878d78?w=1600&h=600&fit=crop');background-size:cover;background-position:center;">
-      <div class="slide-overlay"></div>
-      <div class="container slide-inner">
-        <div class="slide-text">
-          <h2>ถ้วยรางวัล<br><span>สั่งทำคัสตอม</span></h2>
-          <p>คริสตัล อะคริลิก 3D Printing ฐานไม้ พร้อมสลักชื่อ-โลโก้ ฟรี</p>
-          <a href="#" class="slide-btn" onclick="setFilter('trophy'); return false;">ดูสินค้า <i class="fas fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </div>
-    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=1600&h=600&fit=crop');background-size:cover;background-position:center;">
-      <div class="slide-overlay"></div>
-      <div class="container slide-inner">
-        <div class="slide-text">
-          <h2>เหรียญรางวัล<br><span>ออกแบบเองได้</span></h2>
-          <p>ชุบทอง เงิน ทองแดง พร้อม ribbon ตามสีงาน ขั้นต่ำเพียง 20 ชิ้น</p>
-          <a href="#" class="slide-btn" onclick="setFilter('medal'); return false;">ดูสินค้า <i class="fas fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </div>
-    <div class="slider-nav">
-      <button class="slider-dot active" onclick="goSlide(0)"></button>
-      <button class="slider-dot" onclick="goSlide(1)"></button>
-      <button class="slider-dot" onclick="goSlide(2)"></button>
-    </div>
-  </section>
-
-  <!-- Category Highlights -->
-  <section class="cat-highlights">
-    <div class="container">
-      <div class="cat-card" onclick="location.href='custom-shirt.html'">
-        <div class="cat-icon"><img src="assets/icon-apparel.svg" alt="เสื้อทีม" style="width:48px;height:48px;"></div>
-        <h3>เสื้อทีม</h3>
-        <p>สกรีน-ปักโลโก้</p>
-        <small style="color:#ff00ff;margin-top:4px;display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em"><i class="fas fa-paint-brush"></i> ออกแบบเลย</small>
-      </div>
-      <div class="cat-card" onclick="setFilter('trophy')">
-        <div class="cat-icon"><img src="assets/icon-trophy.svg" alt="ถ้วยรางวัล" style="width:48px;height:48px;"></div>
-        <h3>ถ้วยรางวัล</h3>
-        <p>คริสตัล-3D Print</p>
-      </div>
-      <div class="cat-card" onclick="setFilter('medal')">
-        <div class="cat-icon"><img src="assets/icon-medal.svg" alt="เหรียญรางวัล" style="width:48px;height:48px;"></div>
-        <h3>เหรียญรางวัล</h3>
-        <p>ชุบทอง-เงิน</p>
-      </div>
-      <div class="cat-card" onclick="setFilter('wristband')">
-        <div class="cat-icon"><img src="assets/icon-wristband.svg" alt="สายรัดข้อมือ" style="width:48px;height:48px;"></div>
-        <h3>สายรัดข้อมือ</h3>
-        <p>ซิลิโคน-ปั๊มจม</p>
-      </div>
-      <div class="cat-card" onclick="setFilter('badge')">
-        <div class="cat-icon"><img src="assets/icon-badge.svg" alt="เข็มกลัด" style="width:48px;height:48px;"></div>
-        <h3>เข็มกลัด</h3>
-        <p>โลหะ-พลาสติก</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Products Section -->
-  <section class="products-section">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="sectionTitle">สินค้าทั้งหมด</h2>
-        <div class="section-filter">
-          <button class="filter-btn active" onclick="setFilter('all', this)">ทั้งหมด</button>
-          <button class="filter-btn" onclick="setFilter('apparel', this)">เสื้อผ้า</button>
-          <button class="filter-btn" onclick="setFilter('trophy', this)">ถ้วยรางวัล</button>
-          <button class="filter-btn" onclick="setFilter('medal', this)">เหรียญ</button>
-          <button class="filter-btn" onclick="setFilter('wristband', this)">สายรัดข้อมือ</button>
-          <button class="filter-btn" onclick="setFilter('badge', this)">เข็มกลัด</button>
-          <a href="custom-shirt.html" class="filter-btn" style="background:#ff00ff;color:#000;border-color:#ff00ff;text-decoration:none;box-shadow:0 0 15px #ff00ff44"><i class="fas fa-paint-brush"></i> สั่งทำเสื้อ</a>
-        </div>
-      </div>
-      <div class="product-grid" id="productGrid">
-        <div class="loading-text"><i class="fas fa-spinner fa-spin"></i> กำลังโหลดสินค้า...</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features -->
-  <section class="features-section">
-    <div class="container">
-      <div class="feature-item">
-        <i class="fas fa-truck"></i>
-        <h4>จัดส่งฟรี</h4>
-        <p>สั่งซื้อ超过 ฿2,000 ส่งฟรีทั่วประเทศ</p>
-      </div>
-      <div class="feature-item">
-        <i class="fas fa-cut"></i>
-        <h4>สกรีน-ปักฟรี</h4>
-        <p>ออกแบบและสกรีนลายฟรี ไม่มีค่าใช้จ่ายเพิ่ม</p>
-      </div>
-      <div class="feature-item">
-        <i class="fas fa-clock"></i>
-        <h4>ผลิตเร็ว</h4>
-        <p>พร้อมส่งภายใน 3 วันทำการ</p>
-      </div>
-      <div class="feature-item">
-        <i class="fas fa-shield-alt"></i>
-        <h4>รับประกัน</h4>
-        <p>คุณภาพทุกชิ้น พร้อมรับประกัน</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials -->
-  <section class="testimonials-section">
-    <div class="container">
-      <h2>ลูกค้าของเราพูดว่าอะไร</h2>
-      <div class="testimonial-grid">
-        <div class="testimonial-card">
+        <div class="hero-rating glass">
           <div class="stars">★★★★★</div>
-          <p>"สั่งเสื้อทีมงานกีฬาสี 1200 ตัว ได้คุณภาพดีมาก สีสด ไม่หลุด ทีมงานเป็นมิตร แนะนำเลยครับ"</p>
-          <div class="testimonial-author">
-            <img src="assets/avatar-placeholder.svg" alt="คุณวิชาญ" style="width:40px;height:40px;border-radius:50%;margin-right:8px;">
-            <div>
-              <strong>คุณวิชาญ</strong>
-              <span>HR - GrandSport</span>
-            </div>
-          </div>
+          <span>4.9/5 จากลูกค้า 2,400+</span>
         </div>
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>"ถ้วยรางวัล 3D Print สวยมาก ได้แบบที่ต้องการเป๊ะ สั่งทำชิงแชมป์ E-Sports ครับ"</p>
-          <div class="testimonial-author">
-            <img src="assets/avatar-placeholder.svg" alt="คุณกิตติศักดิ์" style="width:40px;height:40px;border-radius:50%;margin-right:8px;">
-            <div>
-              <strong>คุณกิตติศักดิ์</strong>
-              <span>Tournament Organizer</span>
-            </div>
-          </div>
+      </div>
+    </div>
+
+    <div class="hero-marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>· สกรีนไฮเอนด์</span><span>· ปักโลโก้</span><span>· DTF คมชัด</span>
+        <span>· Sublimation</span><span>· ผ้า Cotton 100%</span><span>· ส่งฟรีเกิน ฿2,000</span>
+        <span>· สกรีนไฮเอนด์</span><span>· ปักโลโก้</span><span>· DTF คมชัด</span>
+        <span>· Sublimation</span><span>· ผ้า Cotton 100%</span><span>· ส่งฟรีเกิน ฿2,000</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT YOU GET ============ -->
+  <section class="section" id="get">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow">สิ่งที่คุณจะได้รับ</span>
+        <h2 class="section-title">ทุกอย่างที่ต้องการสำหรับ<span class="grad">เสื้อทีมคุณภาพ</span></h2>
+        <p class="section-sub">ตั้งแต่เนื้อผ้า การพิมพ์ ไปจนถึงการจัดส่ง เราดูแลครบทุกขั้นตอน</p>
+      </div>
+
+      <div class="get-grid">
+        <article class="glass get-card reveal d1">
+          <div class="get-icon"><i class="fas fa-tshirt"></i></div>
+          <h3>เสื้อคุณภาพพรีเมียม</h3>
+          <p>ผ้า Cotton 100% เกรดพรีเมียม นุ่ม ระบายอากาศดี ทรง Unisex ใส่สบายทั้งวัน รองรับการสกรีนและปัก</p>
+        </article>
+        <article class="glass get-card reveal d2">
+          <div class="get-icon"><i class="fas fa-print"></i></div>
+          <h3>พิมพ์คุณภาพระดับภาพถ่าย</h3>
+          <p>เลือกได้หลายเทคนิค — สกรีน ปัก DTF หรือ Sublimation สีสดคมชัด ไม่หลุดลอก ซักได้ 100+ ครั้ง</p>
+        </article>
+        <article class="glass get-card reveal d3">
+          <div class="get-icon"><i class="fas fa-truck"></i></div>
+          <h3>จัดส่งถึงมือใน 3 วัน</h3>
+          <p>ผลิตเร็วภายใน 3 วันทำการหลังยืนยันแบบ จัดส่งทั่วประเทศ ฟรีเมื่อสั่งซื้อเกิน ฿2,000</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT YOU CAN DO ============ -->
+  <section class="section section-features" id="features">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow">สิ่งที่คุณทำได้</span>
+        <h2 class="section-title">เครื่องมือออกแบบ<span class="grad">ใช้ง่าย ทรงพลัง</span></h2>
+        <p class="section-sub">ลาก วาง ปรับขนาด ได้ตามใจคุณ — เห็นผลแบบเรียลไทม์ทันที</p>
+      </div>
+
+      <div class="feat-grid">
+        <article class="glass feat-card reveal d1">
+          <div class="feat-num">01</div>
+          <div class="feat-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+          <h3>อัปโหลดอาร์ตเวิร์ก</h3>
+          <p>ลากรูปโลโก้หรือดีไซน์ของคุณไปวางบนเสื้อ ปรับตำแหน่งและขนาดได้อิสระ รองรับ PNG / JPG</p>
+        </article>
+        <article class="glass feat-card reveal d2">
+          <div class="feat-num">02</div>
+          <div class="feat-icon"><i class="fas fa-font"></i></div>
+          <h3>เพิ่มข้อความและฟอนต์</h3>
+          <p>พิมพ์ชื่อทีม ชื่อผู้เล่น หรือสโลแกน เลือกฟอนต์และสีที่ชอบ จัดวางได้ทั้งด้านหน้าและด้านหลัง</p>
+        </article>
+        <article class="glass feat-card reveal d3">
+          <div class="feat-num">03</div>
+          <div class="feat-icon"><i class="fas fa-palette"></i></div>
+          <h3>เลือกสี แบบ และไซส์</h3>
+          <p>10 สีเสื้อให้เลือก 4 ทรง (คอกลม โปโล สายเดี่ยว แขนยาว) ไซส์ครบ XS ถึง 3XL</p>
+        </article>
+        <article class="glass feat-card reveal d4">
+          <div class="feat-num">04</div>
+          <div class="feat-icon"><i class="fas fa-eye"></i></div>
+          <h3>พรีวิวสดแบบเรียลไทม์</h3>
+          <p>เห็นผลลัพธ์ทันทีทุกครั้งที่แก้ไข สลับดูด้านหน้า–ด้านหลัง ก่อนกดสั่งทำได้อย่างมั่นใจ</p>
+        </article>
+      </div>
+
+      <div class="feat-cta reveal">
+        <a href="custom-shirt.html" class="btn btn-cool btn-lg">
+          ลองออกแบบเดี๋ยวนี้ <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="section" id="how">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow">วิธีสั่งทำ</span>
+        <h2 class="section-title">ง่ายแค่ <span class="grad">3 ขั้นตอน</span></h2>
+      </div>
+
+      <div class="steps">
+        <div class="step reveal d1">
+          <div class="step-badge">1</div>
+          <div class="step-icon glass"><i class="fas fa-pencil-ruler"></i></div>
+          <h3>ออกแบบ</h3>
+          <p>เลือกเสื้อ อัปโหลดดีไซน์ เพิ่มชื่อทีม ปรับจนพอใจ</p>
         </div>
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>"เหรียญรางวัลชุบทอง光泽ดี ไม่ดูถูก ราคาสมเหตุสมผล จัดส่งไว ประทับใจครับ"</p>
-          <div class="testimonial-author">
-            <img src="assets/avatar-placeholder.svg" alt="คุณสมศักดิ์" style="width:40px;height:40px;border-radius:50%;margin-right:8px;">
-            <div>
-              <strong>คุณสมศักดิ์</strong>
-            <span>School Activities</span>
-          </div>
+        <div class="step-line reveal d2" aria-hidden="true"></div>
+        <div class="step reveal d2">
+          <div class="step-badge">2</div>
+          <div class="step-icon glass"><i class="fas fa-shopping-cart"></i></div>
+          <h3>สั่งซื้อ</h3>
+          <p>เลือกไซส์และจำนวน ตรวจสอบราคา ยืนยันคำสั่งซื้อ</p>
+        </div>
+        <div class="step-line reveal d3" aria-hidden="true"></div>
+        <div class="step reveal d3">
+          <div class="step-badge">3</div>
+          <div class="step-icon glass"><i class="fas fa-box-open"></i></div>
+          <h3>รับสินค้า</h3>
+          <p>เราผลิตและจัดส่งถึงมือคุณภายใน 3 วันทำการ</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- ============ GALLERY ============ -->
+  <section class="section section-gallery" id="gallery">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow">ผลงานของเรา</span>
+        <h2 class="section-title">ตัวอย่างเสื้อทีมที่เรา<span class="grad">ทำให้ลูกค้า</span></h2>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="glass gallery-item reveal d1">
+          <div class="gallery-jersey" style="background:linear-gradient(135deg,#7c5cff,#5a3ff0);">
+            <div class="gj-body" style="background:#e74c3c;"><div class="gj-number">7</div><div class="gj-text">FC THUNDER</div></div>
+          </div>
+          <span>เสื้อบอลทีม FC Thunder</span>
+        </div>
+        <div class="glass gallery-item reveal d2">
+          <div class="gallery-jersey" style="background:linear-gradient(135deg,#2de2e6,#0fb9c0);">
+            <div class="gj-body" style="background:#0d1117;"><div class="gj-number" style="color:#f1c40f;">23</div><div class="gj-text" style="color:#f1c40f;">WOLVES</div></div>
+          </div>
+          <span>เสื้อบาสทีม Wolves</span>
+        </div>
+        <div class="glass gallery-item reveal d3">
+          <div class="gallery-jersey" style="background:linear-gradient(135deg,#34e0a1,#1ea776);">
+            <div class="gj-body" style="background:#fff;"><div class="gj-number" style="color:#27ae60;">9</div><div class="gj-text" style="color:#27ae60;">RUN BKK</div></div>
+          </div>
+          <span>เสื้อวิ่งมินิมาราธอน</span>
+        </div>
+        <div class="glass gallery-item reveal d4">
+          <div class="gallery-jersey" style="background:linear-gradient(135deg,#ff4d8d,#c5326b);">
+            <div class="gj-body" style="background:#1a1a2e;"><div class="gj-number" style="color:#fff;">1</div><div class="gj-text" style="color:#ff4d8d;">STAFF</div></div>
+          </div>
+          <span>เสื้อพนักงานบริษัท</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section class="section" id="reviews">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow">รีวิวจากลูกค้า</span>
+        <h2 class="section-title">ลูกค้าของเรา<span class="grad">พูดถึงเรา</span></h2>
+      </div>
+
+      <div class="testi-grid">
+        <article class="glass testi-card reveal d1">
+          <div class="testi-stars">★★★★★</div>
+          <p>"สั่งเสื้อทีมงานกีฬาสี 1,200 ตัว ได้คุณภาพดีมาก สีสด ไม่หลุด ทีมงานเป็นมิตร แนะนำเลยครับ"</p>
+          <div class="testi-author">
+            <img src="assets/avatar-placeholder.svg" alt="">
+            <div><strong>คุณวิชาญ</strong><span>HR · GrandSport</span></div>
+          </div>
+        </article>
+        <article class="glass testi-card reveal d2">
+          <div class="testi-stars">★★★★★</div>
+          <p>"เครื่องมือออกแบบใช้งานง่ายมาก ลากโลโก้วางบนเสื้อแล้วเห็นผลเลย สั่งทำเสื้อแข่ง E-Sports ออกมาสวยมาก"</p>
+          <div class="testi-author">
+            <img src="assets/avatar-placeholder.svg" alt="">
+            <div><strong>คุณกิตติศักดิ์</strong><span>Tournament Organizer</span></div>
+          </div>
+        </article>
+        <article class="glass testi-card reveal d3">
+          <div class="testi-stars">★★★★★</div>
+          <p>"สั่งเสื้อทีมซ้อม 30 ตัว สกรีนคมชัด เนื้อผ้านุ่มดี ราคาสมเหตุสมผล จัดส่งไว ประทับใจครับ"</p>
+          <div class="testi-author">
+            <img src="assets/avatar-placeholder.svg" alt="">
+            <div><strong>คุณสมศักดิ์</strong><span>โรงเรียน</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="section" id="faq">
+    <div class="container faq-wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">คำถามที่พบบ่อย</span>
+        <h2 class="section-title">มีคำถาม? <span class="grad">เรามีคำตอบ</span></h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item glass reveal">
+          <button class="faq-q" aria-expanded="false">
+            <span>สั่งทำเสื้อทีมขั้นต่ำกี่ตัว?</span><i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-a"><p>ไม่มีขั้นต่ำ! สั่งทำ 1 ตัวก็ได้ แต่ถ้าสั่ง 25 ตัวขึ้นไปจะได้ส่วนลดพิเศษแบบกลุ่ม</p></div>
+        </div>
+        <div class="faq-item glass reveal">
+          <button class="faq-q" aria-expanded="false">
+            <span>ใช้เวลาผลิตนานแค่ไหน?</span><i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-a"><p>เสื้อสกรีนใช้เวลา 3–5 วันทำการ เสื้อปักใช้เวลา 5–7 วันทำการ นับจากวันยืนยันแบบ</p></div>
+        </div>
+        <div class="faq-item glass reveal">
+          <button class="faq-q" aria-expanded="false">
+            <span>ลายพิมพ์ถือได้นานแค่ไหน?</span><i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-a"><p>เทคนิค Sublimation และ DTF สีซึมเข้าเนื้อผ้า/ฟิล์ม ไม่หลุดลอก ซักได้ 100+ ครั้ง สีไม่ซีด</p></div>
+        </div>
+        <div class="faq-item glass reveal">
+          <button class="faq-q" aria-expanded="false">
+            <span>สั่งทำไซส์พิเศษได้ไหม?</span><i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-a"><p>ได้! เรามีไซส์ XS ถึง 3XL หากต้องการไซส์ที่ใหญ่กว่านี้ สามารถติดต่อเราโดยตรงได้เลย</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="glass cta-card reveal">
+        <div class="orb violet" style="width:300px;height:300px;top:-100px;left:10%;opacity:.35;"></div>
+        <div class="orb cyan" style="width:260px;height:260px;bottom:-120px;right:15%;opacity:.3;"></div>
+        <div class="cta-inner">
+          <h2 class="cta-title">พร้อมออกแบบเสื้อทีมของคุณหรือยัง?</h2>
+          <p class="cta-sub">เริ่มจากแบบเปล่า ๆ แล้วเพิ่มสไตล์ของคุณเอง — ฟรี ไม่มีค่าใช้จ่ายล่วงหน้า</p>
+          <a href="custom-shirt.html" class="btn btn-primary btn-lg">
+            <i class="fas fa-paint-brush"></i> เริ่มออกแบบเสื้อของคุณ
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-col">
-          <div class="footer-logo"><img src="assets/logo-white.svg" alt="VICTO" height="28"></div>
-          <p>ร้านค้าสั่งทำเสื้อทีม ถ้วยรางวัล เหรียญ สายรัดข้อมือ และเข็มกลัด สำหรับทุกงานอีเวนต์ แข่งขัน กีฬาสี</p>
+        <div class="footer-col footer-brand">
+          <div class="brand"><span class="brand-mark">V</span><span class="brand-name">VICTO</span></div>
+          <p>ร้านสั่งทำเสื้อทีมพิมพ์ตามสั่ง คุณภาพพรีเมียม สำหรับทุกงานอีเวนต์ กีฬาสี ทีมงาน และองค์กร</p>
           <div class="footer-social">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-line"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LINE"><i class="fab fa-line"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
           </div>
         </div>
         <div class="footer-col">
-          <h4>สินค้า</h4>
+          <h4>เมนู</h4>
           <ul>
-            <li><a href="custom-shirt.html">เสื้อทีม</a></li>
-        <li><a href="custom-shirt.html"><i class="fas fa-paint-brush"></i> สั่งทำเสื้อ</a></li>
-            <li><a href="#" onclick="setFilter('trophy'); return false;">ถ้วยรางวัล</a></li>
-            <li><a href="#" onclick="setFilter('medal'); return false;">เหรียญรางวัล</a></li>
-            <li><a href="#" onclick="setFilter('wristband'); return false;">สายรัดข้อมือ</a></li>
-            <li><a href="#" onclick="setFilter('badge'); return false;">เข็มกลัด</a></li>
+            <li><a href="#features">ทำอะไรได้บ้าง</a></li>
+            <li><a href="#how">วิธีสั่งทำ</a></li>
+            <li><a href="#gallery">ผลงาน</a></li>
+            <li><a href="#faq">คำถาม</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>ข้อมูล</h4>
+          <h4>เริ่มต้น</h4>
           <ul>
-            <li><a href="#">เกี่ยวกับเรา</a></li>
+            <li><a href="custom-shirt.html">ออกแบบเสื้อ</a></li>
+            <li><a href="erp.html">เข้าสู่ระบบ</a></li>
             <li><a href="#">วิธีสั่งซื้อ</a></li>
             <li><a href="#">นโยบายจัดส่ง</a></li>
-            <li><a href="#">นโยบายคืนเงิน</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -272,41 +367,15 @@
             <li><i class="fas fa-map-marker-alt"></i> กรุงเทพมหานคร, ประเทศไทย</li>
             <li><i class="fas fa-phone-alt"></i> 02-123-4567</li>
             <li><i class="fas fa-envelope"></i> info@victo.co.th</li>
-            <li><i class="fas fa-clock"></i> จันทร์-เสาร์ 9:00-18:00</li>
+            <li><i class="fas fa-clock"></i> จันทร์–เสาร์ 9:00–18:00</li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 VICTO. All rights reserved.</p>
-        <div class="footer-payments">
-          <i class="fab fa-cc-visa"></i>
-          <i class="fab fa-cc-mastercard"></i>
-          <i class="fab fa-cc-paypal"></i>
-          <i class="fas fa-money-bill-wave"></i>
-        </div>
+        <p>&copy; 2026 VICTO. สงวนลิขสิทธิ์ทุกประการ</p>
       </div>
     </div>
   </footer>
-
-  <!-- Product Modal -->
-  <div class="modal-overlay" id="productModal" style="display:none" onclick="closeModal(event)">
-    <div class="modal-card" onclick="event.stopPropagation()">
-      <button class="modal-close" onclick="closeModal()">&times;</button>
-      <div class="modal-image" id="modalImage"></div>
-      <div class="modal-info">
-        <span class="category-tag" id="modalCategory"></span>
-        <h2 id="modalName"></h2>
-        <p class="modal-sku" id="modalSku"></p>
-        <p class="modal-desc" id="modalDesc"></p>
-        <div class="modal-price-row">
-          <div class="modal-price" id="modalPrice"></div>
-          <button class="modal-buy-btn" onclick="alert('กรุณาติดต่อ 02-123-4567 เพื่อสั่งซื้อ')">
-            <i class="fas fa-shopping-cart"></i> สั่งซื้อ
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <script src="js/store.js"></script>
 </body>
