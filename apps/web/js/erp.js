@@ -18,12 +18,17 @@ const STATUS_LABELS = {
   shipped:'จัดส่งแล้ว', delivered:'จัดส่งสำเร็จ', cancelled:'ยกเลิก'
 };
 
+let authMode = 'login';
+
 function formatPrice(p) { return parseFloat(p.$numberDecimal||p).toLocaleString(); }
 
 function navigate(page) { currentPage = page; render(); }
 
 function render() {
-  if (!currentUser) renderLogin();
+  if (!currentUser) {
+    if (authMode === 'register') renderRegister();
+    else renderLogin();
+  }
   else if (currentPage === 'dashboard') renderDashboard();
   else if (currentPage === 'orders') renderOrders();
   else if (currentPage === 'products') renderProducts();
@@ -45,9 +50,14 @@ function renderLogin() {
           <div class="form-group"><label>รหัสผ่าน</label><input type="password" id="pwd" required></div>
           <button type="submit" class="btn btn-green" style="width:100%;justify-content:center;padding:14px">เข้าสู่ระบบ</button>
           <div id="errMsg" class="error-msg"></div>
+          <p style="text-align:center;font-size:13px;margin-top:16px;cursor:pointer;color:var(--accent-2)" id="toRegister">ยังไม่มีบัญชี? สมัครสมาชิก</p>
         </form>
       </div>
     </div>`;
+  document.getElementById('toRegister').addEventListener('click', () => {
+    authMode = 'register';
+    render();
+  });
   document.getElementById('loginForm').addEventListener('submit', async e => {
     e.preventDefault();
     try {
@@ -64,7 +74,54 @@ function renderLogin() {
   });
 }
 
-function logout() { currentUser=null; localStorage.removeItem('erp_user'); navigate('login'); }
+// ─── Register ───
+function renderRegister() {
+  app.innerHTML = `
+    <div class="erp-login">
+      <div class="erp-login-box">
+        <div class="erp-login-brand">
+          <span class="brand-mark">V</span>
+          <span class="brand-name">VICTO</span>
+        </div>
+        <p class="sub">สมัครสมาชิกใหม่</p>
+        <form id="registerForm">
+          <div class="form-group"><label>ชื่อผู้ใช้งาน</label><input type="text" id="regUsername" required></div>
+          <div class="form-group"><label>อีเมล</label><input type="email" id="regEmail" required></div>
+          <div class="form-group"><label>เบอร์โทรศัพท์</label><input type="tel" id="regPhone" required></div>
+          <div class="form-group"><label>รหัสผ่าน</label><input type="password" id="regPwd" required></div>
+          <button type="submit" class="btn btn-green" style="width:100%;justify-content:center;padding:14px">สมัครสมาชิก</button>
+          <div id="errMsg" class="error-msg"></div>
+          <p style="text-align:center;font-size:13px;margin-top:16px;cursor:pointer;color:var(--accent-2)" id="toLogin">มีบัญชีอยู่แล้ว? เข้าสู่ระบบ</p>
+        </form>
+      </div>
+    </div>`;
+  document.getElementById('toLogin').addEventListener('click', () => {
+    authMode = 'login';
+    render();
+  });
+  document.getElementById('registerForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    try {
+      const res = await fetch(`${API}/api/auth/register`, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+          username: document.getElementById('regUsername').value,
+          email: document.getElementById('regEmail').value,
+          phone: document.getElementById('regPhone').value,
+          pwd: document.getElementById('regPwd').value
+        })
+      });
+      const d = await res.json();
+      if (!res.ok) { document.getElementById('errMsg').textContent = d.error||'สมัครสมาชิกไม่สำเร็จ'; return; }
+      currentUser = d;
+      localStorage.setItem('erp_user', JSON.stringify(d));
+      authMode = 'login';
+      navigate('dashboard');
+    } catch { document.getElementById('errMsg').textContent = 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้'; }
+  });
+}
+
+function logout() { currentUser=null; localStorage.removeItem('erp_user'); authMode='login'; navigate('login'); }
 
 function renderNav() {
   return `
@@ -168,14 +225,34 @@ function showOrderDetail(id) {
       <p style="font-size:13px;margin-bottom:4px">ชำระเงิน: <span class="badge ${o.financials.payment_status}">${o.financials.payment_status}</span></p>
       <p style="font-size:13px;margin-bottom:12px">ยอดสุทธิ: ฿${formatPrice(o.financials.net_amount)}</p>
       <p style="font-size:13px;margin-bottom:12px">ที่อยู่จัดส่ง: ${o.shipping_address_snapshot.recipient_name} ${o.shipping_address_snapshot.address_line1} ${o.shipping_address_snapshot.province} ${o.shipping_address_snapshot.postal_code}</p>
-      <table style="width:100%;border-collapse:collapse;font-size:12px">
-        <thead><tr><th>สินค้า</th><th>จำนวน</th><th>สถานะตรวจสอบ</th></tr></thead>
+      <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px">
+        <thead><tr><th style="text-align:left;padding:6px">สินค้า</th><th style="padding:6px">จำนวน</th><th style="padding:6px">สถานะตรวจสอบ</th></tr></thead>
         <tbody>${o.items.map(i => `
-          <tr>
-            <td>${i.product_name}</td>
-            <td>${i.quantity}</td>
-            <td><span class="badge ${i.verify_status==='approved'?'delivered':i.verify_status==='pending'?'pending':'cancelled'}">${i.verify_status}</span></td>
-          </tr>`).join('')}
+          <tr style="border-bottom:1px solid #eee">
+            <td style="padding:8px 6px">
+              <strong>${i.product_name}</strong>
+              ${i.customization ? `
+                <div style="margin-top:6px;font-size:11px;color:#666;line-height:1.4">
+                  ${i.customization.selected_size ? `<div><strong>ขนาด:</strong> ${i.customization.selected_size}</div>` : ''}
+                  ${i.customization.custom_text && i.customization.custom_text !== 'None' ? `<div><strong>ข้อความ:</strong> ${i.customization.custom_text}</div>` : ''}
+                  ${i.customization.additional_note ? `<div><strong>โน้ต:</strong> ${i.customization.additional_note}</div>` : ''}
+                </div>
+              ` : ''}
+            </td>
+            <td style="text-align:center;padding:8px 6px">${i.quantity}</td>
+            <td style="text-align:center;padding:8px 6px">
+              <span class="badge ${i.verify_status==='approved'?'delivered':i.verify_status==='pending'?'pending':'cancelled'}">${i.verify_status}</span>
+            </td>
+          </tr>
+          ${i.customization && i.customization.uploaded_image_url ? `
+            <tr>
+              <td colspan="3" style="padding:10px 6px;background:#f9f9f9;text-align:center;border-bottom:1px solid #ddd">
+                <div style="font-weight:bold;font-size:11px;margin-bottom:6px;color:#444">ลายสกรีนที่ลูกค้าออกแบบ (Design Preview):</div>
+                <img src="${i.customization.uploaded_image_url}" style="max-height:180px;max-width:100%;object-fit:contain;border:1px solid #ccc;padding:4px;background:#fff;border-radius:4px" />
+              </td>
+            </tr>
+          ` : ''}
+        `).join('')}
         </tbody>
       </table>
     </div>`;

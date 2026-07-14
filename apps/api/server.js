@@ -18,6 +18,7 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/products', require('./routes/products'));
 app.use('/api/orders', require('./routes/orders'));
 app.use('/api/dashboard', require('./routes/dashboard'));
+app.use('/api/product-templates', require('./routes/productTemplates'));
 
 app.get('/erp', (req, res) => {
   res.sendFile(path.join(__dirname, '../web/erp.html'));

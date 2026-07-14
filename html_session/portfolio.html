@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สมชาย ยอดนักพัฒนา - วิกิพีเดีย</title>
+    <style>
+        /* Basic Wikipedia Theme styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #202122;
+            background-color: #f6f6f6;
+        }
+
+        a {
+            color: #0645ad;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Container Layout */
+        .wiki-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar styling */
+        .wiki-sidebar {
+            width: 176px;
+            background-color: #f6f6f6;
+            padding: 1.5em 1em 1em 1.5em;
+            box-sizing: border-box;
+            flex-shrink: 0;
+            border-right: 1px solid #a7d7f9;
+        }
+
+        .wiki-logo {
+            font-family: Georgia, serif;
+            font-style: italic;
+            font-weight: bold;
+            font-size: 1.25rem;
+            color: #54595d;
+            text-align: center;
+            margin-bottom: 1.5em;
+            border-bottom: 1px solid #a2a9b1;
+            padding-bottom: 0.5em;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5em 0;
+            font-size: 0.75rem;
+        }
+
+        .sidebar-menu-title {
+            color: #54595d;
+            font-weight: bold;
+            margin-bottom: 0.3em;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.4em;
+        }
+
+        /* Main area styling */
+        .wiki-main {
+            flex-grow: 1;
+            background-color: #ffffff;
+            padding: 1.5em 2.5em 2.5em 2.5em;
+            box-sizing: border-box;
+            max-width: 1200px;
+        }
+
+        .wiki-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #a7d7f9;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+            font-size: 0.8rem;
+            color: #54595d;
+        }
+
+        .page-tabs {
+            display: flex;
+            border-bottom: 1px solid #a7d7f9;
+            margin-bottom: 1.5em;
+            font-size: 0.85rem;
+        }
+
+        .page-tabs div {
+            padding: 8px 12px 6px 12px;
+            border: 1px solid transparent;
+            border-bottom: none;
+            cursor: pointer;
+            margin-bottom: -1px;
+        }
+
+        .page-tabs .active {
+            background-color: #ffffff;
+            border-color: #a7d7f9;
+            border-bottom: 1px solid #ffffff;
+            font-weight: bold;
+        }
+
+        /* Content elements formatting */
+        h1 {
+            font-family: 'Georgia', 'Times', serif;
+            font-size: 1.8rem;
+            font-weight: normal;
+            margin-top: 0;
+            margin-bottom: 0.25em;
+            border-bottom: 1px solid #a2a9b1;
+            padding-bottom: 0.25em;
+        }
+
+        .site-sub {
+            font-size: 0.8rem;
+            color: #54595d;
+            margin-bottom: 1.5em;
+            font-style: italic;
+        }
+
+        h2 {
+            font-family: 'Georgia', 'Times', serif;
+            font-size: 1.5rem;
+            font-weight: normal;
+            border-bottom: 1px solid #a2a9b1;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            padding-bottom: 0.25em;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 1.4em;
+            margin-bottom: 0.4em;
+        }
+
+        h5 {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 1.2em;
+            margin-bottom: 0.3em;
+        }
+
+        h6 {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 1.2em;
+            margin-bottom: 0.3em;
+            color: #444444;
+        }
+
+        p {
+            margin: 0.5em 0 1em 0;
+            text-align: justify;
+        }
+
+        /* Table of Contents */
+        .toc {
+            border: 1px solid #a2a9b1;
+            background-color: #f8f9fa;
+            padding: 15px;
+            display: inline-block;
+            min-width: 250px;
+            margin: 1em 0 1.5em 0;
+            font-size: 0.85rem;
+        }
+
+        .toc-title {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .toc ul ul {
+            padding-left: 1.5em;
+        }
+
+        .toc-number {
+            color: #202122;
+            margin-right: 0.5em;
+            font-weight: bold;
+        }
+
+        /* Infobox Sidebar */
+        .infobox {
+            border: 1px solid #a2a9b1;
+            background-color: #f8f9fa;
+            width: 280px;
+            float: right;
+            margin: 0 0 1em 1.5em;
+            padding: 5px;
+            font-size: 0.8rem;
+        }
+
+        .infobox-title {
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            background-color: #e2e8f0;
+            padding: 6px;
+            margin-bottom: 5px;
+        }
+
+        .infobox-image {
+            text-align: center;
+            font-size: 4rem;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 8px;
+            padding: 10px 0;
+        }
+
+        .infobox table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .infobox th {
+            text-align: left;
+            width: 35%;
+            padding: 4px 6px;
+            vertical-align: top;
+            border-top: 1px solid #eaecf0;
+            color: #54595d;
+        }
+
+        .infobox td {
+            padding: 4px 6px;
+            vertical-align: top;
+            border-top: 1px solid #eaecf0;
+        }
+
+        .wiki-footer {
+            margin-top: 3em;
+            border-top: 1px solid #a2a9b1;
+            padding: 1em 0;
+            font-size: 0.75rem;
+            color: #54595d;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wiki-container">
+        <!-- Navigation Sidebar -->
+        <aside class="wiki-sidebar">
+            <div class="wiki-logo">วิกิพีเดีย</div>
+            <div class="sidebar-menu-title">การนำทาง</div>
+            <ul class="sidebar-menu">
+                <li><a href="#">หน้าหลัก</a></li>
+                <li><a href="#">สารบัญเนื้อหา</a></li>
+                <li><a href="#">บทความสุ่ม</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="wiki-main">
+            <header class="wiki-header">
+                <div>ผู้เยี่ยมชมทั่วไป</div>
+                <div><a href="#">สร้างบัญชี</a> | <a href="#">เข้าสู่ระบบ</a></div>
+            </header>
+
+            <div class="page-tabs">
+                <div class="active">บทความ</div>
+                <div>อภิปราย</div>
+            </div>
+
+            <!-- H1 Tag: Title -->
+            <h1>สมชาย ยอดนักพัฒนา</h1>
+            <div class="site-sub">จากวิกิพีเดีย สารานุกรมเสรีสำหรับนักพัฒนาซอฟต์แวร์</div>
+
+            <!-- Infobox Biography -->
+            <aside class="infobox">
+                <div class="infobox-title">ประวัติบุคคล</div>
+                <div class="infobox-image">👨‍💻</div>
+                <table>
+                    <tr>
+                        <th>ชื่อเต็ม</th>
+                        <td>สมชาย ยอดนักพัฒนา</td>
+                    </tr>
+                    <tr>
+                        <th>เกิด</th>
+                        <td>1 มกราคม พ.ศ. 2540 (อายุ 29 ปี)</td>
+                    </tr>
+                    <tr>
+                        <th>สัญชาติ</th>
+                        <td>ไทย</td>
+                    </tr>
+                    <tr>
+                        <th>อาชีพ</th>
+                        <td>วิศวกรซอฟต์แวร์, นักพัฒนาเว็บ</td>
+                    </tr>
+                </table>
+            </aside>
+
+            <!-- Paragraph -->
+            <p>สมชาย ยอดนักพัฒนา เป็นวิศวกรซอฟต์แวร์ผู้เชี่ยวชาญด้านการพัฒนาเทคโนโลยีเว็บแบบ Full-stack และผู้ออกแบบระบบที่มีประสิทธิภาพสูง ปัจจุบันเขาทำงานวิจัยเกี่ยวกับระบบประมวลผลบนคลาวด์และโปรแกรมประยุกต์แบบกระจายศูนย์</p>
+
+            <!-- Table of Contents -->
+            <nav class="toc">
+                <div class="toc-title">สารบัญ</div>
+                <ul>
+                    <li>
+                        <a href="#section-1"><span class="toc-number">1</span> ประวัติการทำงาน</a>
+                        <ul>
+                            <li>
+                                <a href="#section-1-1"><span class="toc-number">1.1</span> สายงานพัฒนาซอฟต์แวร์</a>
+                                <ul>
+                                    <li>
+                                        <a href="#section-1-1-1"><span class="toc-number">1.1.1</span> นักพัฒนาเว็บอาวุโส</a>
+                                        <ul>
+                                            <li><a href="#section-1-1-1-1"><span class="toc-number">1.1.1.1</span> ทักษะและความรับผิดชอบหลัก</a></li>
+                                            <li><a href="#section-1-1-1-1-1"><span class="toc-number">1.1.1.1.1</span> เครื่องมือและเทคโนโลยีที่ใช้</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#section-1-2"><span class="toc-number">1.2</span> สายงานออกแบบกราฟิก</a>
+                                <ul>
+                                    <li>
+                                        <a href="#section-1-2-1"><span class="toc-number">1.2.1</span> นักออกแบบเว็บ</a>
+                                        <ul>
+                                            <li><a href="#section-1-2-1-1"><span class="toc-number">1.2.1.1</span> ความเชื่อและปรัชญาการออกแบบ</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- H2 Tag -->
+            <h2 id="section-1">ประวัติการทำงาน</h2>
+            <p>เขาได้เริ่มทำงานในแวดวงไอทีมาเป็นระยะเวลาเกือบหนึ่งทศวรรษ โดยเน้นการพัฒนาสถาปัตยกรรมระบบเว็บขนาดใหญ่และงานออกแบบประสบการณ์ผู้ใช้ที่เป็นเลิศ</p>
+
+            <!-- H3 Tag -->
+            <h3 id="section-1-1">สายงานพัฒนาซอฟต์แวร์</h3>
+            <p>ผลงานการเขียนโค้ดและพัฒนาแอปพลิเคชันที่มีผู้ใช้จำนวนมากต่อวัน ประสบความสำเร็จอย่างโดดเด่นทั้งในระบบเบื้องหลังและส่วนติดต่อผู้ใช้งาน</p>
+
+            <!-- H4 Tag -->
+            <h4 id="section-1-1-1">นักพัฒนาเว็บอาวุโส</h4>
+            <p>บทบาทผู้ดูแลและนำทัพทีมวิศวกรในการสร้างสรรค์ระบบเว็บแอปพลิเคชันที่รองรับการปรับขยายสเกลตามปริมาณทราฟฟิกของผู้ใช้อย่างยืดหยุ่น</p>
+
+            <!-- H5 Tag -->
+            <h5 id="section-1-1-1-1">ทักษะและความรับผิดชอบหลัก</h5>
+            <p>ดูแลการวางสถาปัตยกรรมเว็บเบื้องหน้าและเบื้องหลัง ปรับปรุงความเร็วในการดาวน์โหลดของหน้าเว็บให้ทำงานได้อย่างราบรื่นและปลอดภัย</p>
+
+            <!-- H6 Tag -->
+            <h6 id="section-1-1-1-1-1">เครื่องมือและเทคโนโลยีที่ใช้</h6>
+            <p>ใช้เทคโนโลยีหลักอย่าง HTML5, CSS3, Vanilla JavaScript รวมไปถึงเฟรมเวิร์กสมัยใหม่และฐานข้อมูลแบบ NoSQL</p>
+
+            <!-- H3 Tag -->
+            <h3 id="section-1-2">สายงานออกแบบกราฟิก</h3>
+            <p>มีประสบการณ์ในการทำงานร่วมกับฝ่ายออกแบบสร้างสรรค์ เพื่อนำไอเดียการออกแบบมาแปลงเป็นโค้ดหน้าตาแอปพลิเคชันจริงอย่างประณีต</p>
+
+            <!-- H4 Tag -->
+            <h4 id="section-1-2-1">นักออกแบบเว็บ</h4>
+            <p>เน้นการนำหลักการจัดวางพื้นที่ สัดส่วนความกว้างยาว และการจับคู่โทนสีที่เหมาะสม เพื่อเพิ่มอัตราการใช้งานของหน้าเว็บไซต์</p>
+
+            <!-- H5 Tag -->
+            <h5 id="section-1-2-1-1">ความเชื่อและปรัชญาการออกแบบ</h5>
+            <p>สมชายเชื่อว่าการออกแบบที่ดีควรเรียบง่าย ใช้งานง่ายสำหรับทุกคน (Accessibility) และสะท้อนตัวตนหรือแบรนด์อย่างชัดเจน</p>
+
+            <footer class="wiki-footer">
+                <div>หน้านี้แก้ไขล่าสุดเมื่อวันที่ 14 กรกฎาคม 2569 เวลา 14:24 น.</div>
+                <div>เนื้อหาอนุญาตให้เผยแพร่ภายใต้สัญญาอนุญาตครีเอทีฟคอมมอนส์</div>
+            </footer>
+        </main>
+    </div>
+
+</body>
+</html>

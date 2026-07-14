@@ -40,4 +40,30 @@ router.put('/:id/status', async (req, res) => {
   }
 });
 
+router.post('/', async (req, res) => {
+  try {
+    const { customer_snapshot, shipping_address_snapshot, financials, items } = req.body;
+    
+    // Generate order number like ORD-20260714-X1Y2
+    const now = new Date();
+    const dateStr = now.getFullYear() + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0');
+    const rand = Math.random().toString(36).substring(2, 6).toUpperCase();
+    const order_number = `ORD-${dateStr}-${rand}`;
+    
+    const newOrder = new Order({
+      order_number,
+      order_status: 'pending_review',
+      customer_snapshot,
+      shipping_address_snapshot,
+      financials,
+      items
+    });
+    
+    await newOrder.save();
+    res.status(201).json(newOrder);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;

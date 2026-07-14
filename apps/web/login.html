@@ -1,0 +1,364 @@
+<!-- VICTO | Premium POD Apparel -->
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VICTO | Access the Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Hanken+Grotesk:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e4e2e2",
+                        "secondary-container": "#fed65b",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#464744",
+                        "outline-variant": "#c4c7c7",
+                        "on-secondary-container": "#745c00",
+                        "surface-container-low": "#f5f3f3",
+                        "surface-dim": "#dbdad9",
+                        "on-tertiary-fixed": "#1b1c1a",
+                        "on-tertiary-container": "#848481",
+                        "on-primary-fixed-variant": "#474746",
+                        "background": "#fbf9f9",
+                        "primary-container": "#1c1b1b",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#444748",
+                        "on-secondary-fixed": "#241a00",
+                        "secondary-fixed-dim": "#e9c349",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#5f5e5e",
+                        "inverse-surface": "#303031",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f2f0f0",
+                        "tertiary": "#000000",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#e5e2e1",
+                        "on-primary-container": "#858383",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#fbf9f9",
+                        "tertiary-fixed": "#e3e2df",
+                        "surface-container-high": "#e9e8e7",
+                        "surface-variant": "#e4e2e2",
+                        "tertiary-container": "#1b1c1a",
+                        "on-primary-fixed": "#1c1b1b",
+                        "on-secondary-fixed-variant": "#574500",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#735c00",
+                        "secondary-fixed": "#ffe088",
+                        "on-background": "#1b1c1c",
+                        "inverse-primary": "#c8c6c5",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#efeded",
+                        "tertiary-fixed-dim": "#c7c7c3",
+                        "surface": "#fbf9f9",
+                        "primary": "#000000",
+                        "outline": "#747878",
+                        "on-surface": "#1b1c1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "container-max": "1440px",
+                        "gutter": "24px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["Playfair Display"],
+                        "body-md": ["Hanken Grotesk"],
+                        "headline-md": ["Playfair Display"],
+                        "label-md": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-sm": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #fbf9f9; /* Warm Ivory base */
+            font-family: 'Hanken Grotesk', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .atelier-card {
+            box-shadow: 0 20px 40px rgba(26, 26, 26, 0.05);
+            background-color: #ffffff;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .gold-underline-active {
+            position: relative;
+        }
+        .gold-underline-active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 1px;
+            background-color: #D4AF37;
+        }
+
+        .champagne-border {
+            border-color: #D4AF37;
+        }
+
+        .obsidian-bg {
+            background-color: #1A1A1A;
+        }
+
+        .input-underline {
+            border-bottom: 1px solid #1A1A1A;
+            transition: border-color 0.3s ease;
+        }
+        .input-underline:focus {
+            outline: none;
+            border-color: #D4AF37;
+        }
+
+        .custom-checkbox:checked {
+            background-color: #1A1A1A;
+            border-color: #D4AF37;
+        }
+
+        .transition-atelier {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-background">
+<!-- Top Navigation -->
+<header class="w-full top-0 z-50 bg-surface/80 backdrop-blur-sm border-b border-outline-variant/10">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-6 max-w-container-max mx-auto">
+<div class="font-display-lg text-[24px] md:text-display-lg font-bold text-primary tracking-tighter cursor-pointer" onclick="location.href='index.html'">
+                VICTO
+            </div>
+<div class="hidden md:flex gap-8 font-body-md text-label-sm uppercase tracking-widest text-on-surface-variant">
+<a class="hover:text-secondary transition-colors duration-300" href="index.html#categories">Collections</a>
+<a class="hover:text-secondary transition-colors duration-300" href="custom-shirt.html">The Atelier</a>
+</div>
+<a class="text-label-md font-bold text-primary flex items-center gap-2" href="index.html">
+<span class="material-symbols-outlined text-[20px]">close</span>
+<span class="hidden md:inline uppercase tracking-widest">Back</span>
+</a>
+</div>
+</header>
+<main class="flex-grow flex items-center justify-center py-16 px-4">
+<!-- Main Auth Container -->
+<div class="w-full max-w-[480px] atelier-card p-8 md:p-12 transition-atelier">
+<!-- Branding/Icon Section -->
+<div class="text-center mb-10">
+<div class="inline-block p-4 border border-outline-variant/20 rounded-full mb-6">
+<span class="material-symbols-outlined text-primary text-[32px]">shield_person</span>
+</div>
+<h1 class="font-headline-sm text-headline-sm text-primary mb-2">Welcome to VICTO</h1>
+<p class="font-body-md text-on-surface-variant text-[14px]">The pinnacle of bespoke digital craftsmanship.</p>
+</div>
+<!-- Tab Navigation -->
+<div class="flex justify-center gap-12 mb-12 border-b border-outline-variant/10 pb-2">
+<button class="font-label-md uppercase text-primary gold-underline-active transition-atelier" id="tab-signin" onclick="switchTab('signin')">Sign In</button>
+<button class="font-label-md uppercase text-on-surface-variant hover:text-primary transition-atelier" id="tab-signup" onclick="switchTab('signup')">Create Account</button>
+</div>
+
+<!-- Error Block -->
+<div id="auth-error" class="hidden mb-6 p-4 bg-error/10 border-l-2 border-error text-error text-[14px]">
+</div>
+
+<!-- Sign In Form -->
+<form class="space-y-8 block" id="form-signin" onsubmit="handleSignIn(event)">
+<div class="space-y-6">
+<div class="relative">
+<label class="font-label-sm uppercase tracking-widest text-[11px] text-on-surface-variant block mb-1">Email Address</label>
+<input type="email" id="signin-email" required class="w-full bg-transparent border-0 border-b border-primary-container p-2 font-body-md focus:ring-0 focus:border-secondary transition-colors"/>
+</div>
+<div class="relative">
+<label class="font-label-sm uppercase tracking-widest text-[11px] text-on-surface-variant block mb-1">Password</label>
+<input type="password" id="signin-pwd" required class="w-full bg-transparent border-0 border-b border-primary-container p-2 font-body-md focus:ring-0 focus:border-secondary transition-colors"/>
+</div>
+</div>
+<div class="flex justify-between items-center text-[12px] font-body-md">
+<label class="flex items-center gap-2 cursor-pointer text-on-surface-variant">
+<input type="checkbox" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4 custom-checkbox"/>
+<span>Remember Me</span>
+</label>
+<a href="#" class="text-secondary hover:underline">Forgot Password?</a>
+</div>
+<button type="submit" class="w-full bg-primary text-on-primary py-4 font-label-md uppercase tracking-[0.2em] hover:opacity-90 transition-opacity">
+                    Sign In
+</button>
+<p class="text-center text-[11px] uppercase tracking-widest text-on-surface-variant/80 mt-4">
+                    Admin/ERP staff please sign in to access dashboard
+</p>
+</form>
+
+<!-- Sign Up Form -->
+<form class="space-y-8 hidden" id="form-signup" onsubmit="handleSignUp(event)">
+<div class="space-y-6">
+<div class="relative">
+<label class="font-label-sm uppercase tracking-widest text-[11px] text-on-surface-variant block mb-1">Full Name</label>
+<input type="text" id="signup-username" required class="w-full bg-transparent border-0 border-b border-primary-container p-2 font-body-md focus:ring-0 focus:border-secondary transition-colors"/>
+</div>
+<div class="relative">
+<label class="font-label-sm uppercase tracking-widest text-[11px] text-on-surface-variant block mb-1">Email Address</label>
+<input type="email" id="signup-email" required class="w-full bg-transparent border-0 border-b border-primary-container p-2 font-body-md focus:ring-0 focus:border-secondary transition-colors"/>
+</div>
+<div class="relative">
+<label class="font-label-sm uppercase tracking-widest text-[11px] text-on-surface-variant block mb-1">Phone Number</label>
+<input type="tel" id="signup-phone" required class="w-full bg-transparent border-0 border-b border-primary-container p-2 font-body-md focus:ring-0 focus:border-secondary transition-colors"/>
+</div>
+<div class="relative">
+<label class="font-label-sm uppercase tracking-widest text-[11px] text-on-surface-variant block mb-1">Password</label>
+<input type="password" id="signup-pwd" required class="w-full bg-transparent border-0 border-b border-primary-container p-2 font-body-md focus:ring-0 focus:border-secondary transition-colors"/>
+</div>
+</div>
+<div class="flex items-start gap-2 text-[12px] font-body-md text-on-surface-variant">
+<input type="checkbox" required class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4 mt-0.5 custom-checkbox"/>
+<span>I agree to the Terms of Service &amp; Privacy Policy</span>
+</div>
+<button type="submit" class="w-full bg-primary text-on-primary py-4 font-label-md uppercase tracking-[0.2em] hover:opacity-90 transition-opacity">
+                    Create Account
+</button>
+</form>
+
+</div>
+</main>
+<footer class="bg-surface border-t border-outline-variant/10 py-8">
+<div class="flex flex-col items-center justify-center gap-4 w-full px-margin-desktop max-w-container-max mx-auto text-center">
+<div class="font-display-lg text-[20px] text-primary">VICTO</div>
+<p class="font-body-md text-[12px] text-on-surface-variant opacity-60">© 2026 VICTO. All rights Reserved.</p>
+</div>
+</footer>
+
+<script>
+        function switchTab(tab) {
+            const btnSignin = document.getElementById('tab-signin');
+            const btnSignup = document.getElementById('tab-signup');
+            const formSignin = document.getElementById('form-signin');
+            const formSignup = document.getElementById('form-signup');
+            const errorBlock = document.getElementById('auth-error');
+
+            errorBlock.classList.add('hidden');
+
+            if (tab === 'signin') {
+                btnSignin.className = "font-label-md uppercase text-primary gold-underline-active transition-atelier";
+                btnSignup.className = "font-label-md uppercase text-on-surface-variant hover:text-primary transition-atelier";
+                formSignin.classList.replace('hidden', 'block');
+                formSignup.classList.replace('block', 'hidden');
+            } else {
+                btnSignup.className = "font-label-md uppercase text-primary gold-underline-active transition-atelier";
+                btnSignin.className = "font-label-md uppercase text-on-surface-variant hover:text-primary transition-atelier";
+                formSignup.classList.replace('hidden', 'block');
+                formSignin.classList.replace('block', 'hidden');
+            }
+        }
+
+        // Check query parameters to open signup tab
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('tab') === 'signup') {
+                switchTab('signup');
+            }
+        });
+
+        async function handleSignIn(e) {
+            e.preventDefault();
+            const email = document.getElementById('signin-email').value;
+            const pwd = document.getElementById('signin-pwd').value;
+            const errorBlock = document.getElementById('auth-error');
+
+            errorBlock.classList.add('hidden');
+
+            try {
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, pwd })
+                });
+                const data = await res.json();
+                
+                if (!res.ok) {
+                    errorBlock.textContent = data.error || 'Log In failed. Please check your credentials.';
+                    errorBlock.classList.remove('hidden');
+                    return;
+                }
+
+                // Success
+                localStorage.setItem('erp_user', JSON.stringify(data));
+                localStorage.setItem('currentUser', JSON.stringify(data));
+
+                // Redirect based on roles
+                if (data.roles && (data.roles.includes('admin') || data.roles.includes('super_admin'))) {
+                    window.location.href = 'erp.html';
+                } else {
+                    window.location.href = 'index.html';
+                }
+            } catch (err) {
+                console.error(err);
+                errorBlock.textContent = 'Server connection error. Please try again.';
+                errorBlock.classList.remove('hidden');
+            }
+        }
+
+        async function handleSignUp(e) {
+            e.preventDefault();
+            const username = document.getElementById('signup-username').value;
+            const email = document.getElementById('signup-email').value;
+            const phone = document.getElementById('signup-phone').value;
+            const pwd = document.getElementById('signup-pwd').value;
+            const errorBlock = document.getElementById('auth-error');
+
+            errorBlock.classList.add('hidden');
+
+            try {
+                const res = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, phone, pwd })
+                });
+                const data = await res.json();
+
+                if (!res.ok) {
+                    errorBlock.textContent = data.error || 'Sign Up failed. Email may already be registered.';
+                    errorBlock.classList.remove('hidden');
+                    return;
+                }
+
+                // Success - auto login
+                localStorage.setItem('erp_user', JSON.stringify(data));
+                localStorage.setItem('currentUser', JSON.stringify(data));
+
+                window.location.href = 'index.html';
+            } catch (err) {
+                console.error(err);
+                errorBlock.textContent = 'Server connection error. Please try again.';
+                errorBlock.classList.remove('hidden');
+            }
+        }
+    </script>
+</body></html>

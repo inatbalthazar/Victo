@@ -161,6 +161,15 @@ button { cursor: pointer; background: none; border: none; }
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
 }
+.glass-hover {
+  transition: transform var(--t) var(--ease), border-color var(--t) var(--ease), box-shadow var(--t) var(--ease), background var(--t) var(--ease);
+}
+.glass-hover:hover {
+  background: var(--glass-strong);
+  border-color: var(--glass-border-strong);
+  box-shadow: var(--glow);
+  transform: translateY(-4px);
+}
 
 /* ---------- Buttons ---------- */
 .btn {

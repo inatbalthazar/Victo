@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VICTO — My Product Templates</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#1c1b1b',
+              secondary: '#D4AF37',
+              'on-primary': '#ffffff',
+              surface: '#fbf9f9',
+              'on-surface': '#1c1b1b',
+              'on-surface-variant': '#444748',
+              'surface-container-low': '#f5f3f3',
+              'surface-container-lowest': '#ffffff',
+              'outline-variant': '#c4c7c7'
+            },
+            spacing: {
+              'margin-desktop': '80px',
+              'margin-mobile': '20px',
+              'container-max': '1440px'
+            },
+            fontFamily: {
+              'display-lg': ['Playfair Display'],
+              'body-md': ['Hanken Grotesk'],
+              'headline-md': ['Playfair Display'],
+              'label-md': ['Hanken Grotesk'],
+              'label-sm': ['Hanken Grotesk'],
+              'headline-sm': ['Playfair Display']
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+        body {
+            background-color: #fbf9f9;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface overflow-x-hidden">
+    <!-- TopNavBar -->
+    <header class="bg-surface border-b border-outline-variant/10 w-full top-0 z-50">
+        <nav class="flex justify-between items-center w-full px-margin-desktop py-6 max-w-container-max mx-auto">
+            <div class="font-display-lg text-display-lg font-bold text-primary cursor-pointer" onclick="location.href='index.html'">VICTO</div>
+            <div class="hidden md:flex gap-12 font-body-md text-body-md uppercase tracking-widest">
+                <a class="text-on-surface-variant hover:text-secondary transition-colors duration-300" href="index.html#categories">Collections</a>
+                <a class="text-on-surface-variant hover:text-secondary transition-colors duration-300" href="custom-shirt.html">Customizer</a>
+                <a class="text-primary border-b border-secondary hover:text-secondary transition-colors duration-300 font-semibold" href="templates.html">My Templates</a>
+                <a class="text-on-surface-variant hover:text-secondary transition-colors duration-300" href="index.html">The Atelier</a>
+            </div>
+            <div class="flex items-center gap-6 font-body-md text-body-md uppercase tracking-widest" id="nav-auth-container">
+                <button class="text-on-surface-variant hover:text-primary transition-colors duration-300" onclick="location.href='login.html'">Sign In</button>
+                <button class="bg-primary text-on-primary px-8 py-3 font-semibold hover:opacity-90 transition-opacity" onclick="location.href='login.html?tab=signup'">Join VICTO</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-container-max mx-auto px-margin-desktop py-12">
+        <div class="flex justify-between items-center border-b border-outline-variant/15 pb-8 mb-10">
+            <div>
+                <h1 class="font-display-lg text-4xl text-primary tracking-tight mb-2">Product Templates</h1>
+                <p class="font-body-md text-sm text-on-surface-variant uppercase tracking-wider">Save and reuse your custom designs</p>
+            </div>
+            <button class="bg-primary text-on-primary px-6 py-4 uppercase font-label-sm tracking-widest hover:opacity-90 transition-opacity flex items-center gap-2" onclick="location.href='custom-shirt.html'">
+                <span class="material-symbols-outlined text-base">add</span>
+                Create New Template
+            </button>
+        </div>
+
+        <!-- Saved Templates Lists (Rendered dynamically in templates.js) -->
+        <div id="templatesContainer">
+            <div class="flex justify-center py-20 text-on-surface-variant font-label-sm uppercase tracking-widest" id="loader">
+                Loading templates...
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-outline-variant/10 py-12 mt-20">
+        <div class="flex flex-col items-center justify-center gap-6 w-full px-margin-desktop max-w-container-max mx-auto text-center">
+            <div class="font-display-lg text-display-lg text-primary cursor-pointer" onclick="location.href='index.html'">VICTO</div>
+            <div class="flex gap-8 font-body-md text-xs uppercase tracking-widest">
+                <a class="text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Privacy Policy</a>
+                <a class="text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Terms of Service</a>
+                <a class="text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Shipping</a>
+                <a class="text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Returns</a>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant opacity-60">© 2026 VICTO. All rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- App JS -->
+    <script src="js/templates.js"></script>
+    <script>
+        // Navigation User state check
+        document.addEventListener('DOMContentLoaded', () => {
+            const userJson = localStorage.getItem('erp_user') || localStorage.getItem('currentUser');
+            if (userJson) {
+                try {
+                    const user = JSON.parse(userJson);
+                    const container = document.getElementById('nav-auth-container');
+                    if (container && user && user.username) {
+                        const isAdmin = user.roles && (user.roles.includes('admin') || user.roles.includes('super_admin'));
+                        container.innerHTML = `
+                            <span class="text-on-surface-variant text-[14px]">Hello, <strong class="text-primary">${user.username}</strong></span>
+                            ${isAdmin ? `<a href="erp.html" class="text-secondary hover:text-primary transition-colors duration-300 font-semibold tracking-widest text-sm">ERP Dashboard</a>` : ''}
+                            <button class="bg-primary text-on-primary px-6 py-2 font-semibold hover:opacity-90 transition-opacity text-sm" onclick="logout()">Sign Out</button>
+                        `;
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('erp_user');
+            localStorage.removeItem('currentUser');
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>
