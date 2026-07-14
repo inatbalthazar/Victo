@@ -4,7 +4,7 @@
   /* ============ CONFIGURATION ============ */
   const SHIRT_COLORS = [
     { hex: '#fbf9f9', name: 'Crafted Ivory' },
-    { hex: '#1c1b1b', name: 'Atelier Onyx' },
+    { hex: '#121212', name: 'Atelier Onyx' },
     { hex: '#8b8378', name: 'Safari Khaki' },
     { hex: '#4a5342', name: 'Sage Olive' },
     { hex: '#314455', name: 'Nordic Indigo' }
@@ -17,7 +17,10 @@
   const FONTS = [
     { name: 'Classic Serif', family: 'Playfair Display' },
     { name: 'Modern Sans', family: 'Hanken Grotesk' },
-    { name: 'Monospace', family: 'Courier New' }
+    { name: 'Atelier Roman', family: 'Cinzel' },
+    { name: 'Minimalist Inter', family: 'Inter' },
+    { name: 'Bespoke Script', family: 'Alex Brush' },
+    { name: 'Monospace', family: 'Courier Prime' }
   ];
 
   const STYLES = {
@@ -33,10 +36,8 @@
   };
 
   const VIEW_LAYOUTS = {
-    front: { top: '23%', left: '26%', width: '48%', height: '54%', pxW: 190, pxH: 220 },
-    back: { top: '23%', left: '26%', width: '48%', height: '54%', pxW: 190, pxH: 220 },
-    left: { top: '26%', left: '4%', width: '15%', height: '22%', pxW: 60, pxH: 90 },
-    right: { top: '26%', left: '81%', width: '15%', height: '22%', pxW: 60, pxH: 90 }
+    front: { top: '23%', left: '26%', width: '48%', height: '54%', pxW: 380, pxH: 440 },
+    back: { top: '23%', left: '26%', width: '48%', height: '54%', pxW: 380, pxH: 440 }
   };
 
   const UNIT_PRICE = 120;
@@ -54,9 +55,16 @@
                        <a class="text-on-surface-variant hover:text-secondary transition-colors duration-300" href="templates.html">My Templates</a>
                        <a class="text-on-surface-variant hover:text-secondary transition-colors duration-300" href="index.html">The Atelier</a>
                    </div>
-                   <div class="flex items-center gap-6 font-body-md text-body-md uppercase tracking-widest" id="nav-auth-container">
-                       <button class="text-on-surface-variant hover:text-primary transition-colors duration-300" onclick="location.href='login.html'">Sign In</button>
-                       <button class="bg-primary text-on-primary px-8 py-3 font-semibold hover:opacity-90 transition-opacity" onclick="location.href='login.html?tab=signup'">Join VICTO</button>
+                   <div class="flex items-center gap-6 font-body-md text-[13px] uppercase tracking-widest">
+                       <div v-if="currentUser" class="flex items-center gap-4">
+                           <span class="text-on-surface-variant font-normal">Hello, <strong class="text-primary">{{ currentUser.username }}</strong></span>
+                           <a v-if="currentUser.roles && (currentUser.roles.includes('admin') || currentUser.roles.includes('super_admin'))" href="erp.html" class="text-secondary hover:text-primary transition-colors duration-300 font-semibold tracking-widest text-[13px] uppercase">ERP Dashboard</a>
+                           <button @click="logout" class="bg-primary text-on-primary px-6 py-2 font-semibold hover:opacity-90 transition-opacity text-[13px] uppercase">Sign Out</button>
+                       </div>
+                       <div v-else class="flex items-center gap-6">
+                           <button class="text-on-surface-variant hover:text-primary transition-colors duration-300" onclick="location.href='login.html'">Sign In</button>
+                           <button class="bg-primary text-on-primary px-8 py-3 font-semibold hover:opacity-90 transition-opacity" onclick="location.href='login.html?tab=signup'">Join VICTO</button>
+                       </div>
                    </div>
                </nav>
            </header>
@@ -165,86 +173,126 @@
                                </button>
                            </div>
                        </div>
-                       <button @click="addText" class="w-full bg-primary text-on-primary py-3 font-semibold hover:opacity-90 transition-opacity text-sm uppercase tracking-widest">
-                           Add Text Layer
+                       <button @click="addText" class="w-full bg-primary text-on-primary py-3 font-semibold hover:opacity-90 transition-opacity text-sm uppercase tracking-widest border border-primary hover:bg-transparent hover:text-primary">
+                           {{ selectedId && layers.find(L => L.id === selectedId && L.layerType === 'text') ? 'Deselect / Done' : 'Add Text Layer' }}
                        </button>
                    </section>
                </aside>
 
                <!-- Center: Interactive Preview Stage -->
                <section class="flex-grow flex flex-col items-center justify-center bg-surface-container relative overflow-hidden p-12 min-h-[520px] w-full" id="previewStage">
+                   <!-- Print area warning banner -->
+                   <div v-show="isOutsidePrintArea" class="absolute top-[80px] left-1/2 -translate-x-1/2 bg-rose-600/90 text-white font-label-md px-6 py-2.5 rounded-full shadow-lg z-20 flex items-center gap-2 text-xs uppercase tracking-wider animate-pulse border border-rose-400">
+                       <span class="material-symbols-outlined text-base">warning</span>
+                       <span>Design exceeds printable area boundary!</span>
+                   </div>
+
                    <!-- Isolated Printable View Toggle Tabs -->
-                   <div class="absolute top-8 left-1/2 -translate-x-1/2 flex gap-2 z-20 flex-wrap justify-center max-w-full">
-                       <button v-for="s in ['front', 'back', 'left', 'right']" 
+                   <div class="absolute top-8 left-1/2 -translate-x-1/2 flex gap-4 z-20">
+                       <button v-for="s in ['front', 'back']" 
                                :key="s"
-                               :class="['side-btn', side === s ? 'active bg-primary text-on-primary shadow-sm' : 'bg-surface text-on-surface-variant hover:bg-surface-container-highest']" 
-                               @click="setSide(s)" 
-                               class="font-label-md px-4 py-2 uppercase tracking-widest text-xs transition-all border border-outline-variant/10">
-                           {{ s === 'left' ? 'Left Sleeve' : s === 'right' ? 'Right Sleeve' : s }}
+                               :class="['relative overflow-hidden group flex items-center gap-3 px-6 py-2.5 uppercase tracking-widest text-xs transition-all border font-semibold rounded-md shadow-sm', side === s ? 'bg-primary text-on-primary border-primary' : 'bg-surface text-on-surface-variant hover:bg-surface-container-highest border-outline-variant/30']" 
+                               @click="setSide(s)">
+                           
+                           <!-- Thumbnail Preview Mini Circle -->
+                           <div class="w-8 h-8 rounded-full border border-outline-variant/50 bg-white/80 overflow-hidden flex items-center justify-center flex-shrink-0 shadow-inner">
+                               <img v-if="thumbnailState[s]" :src="thumbnailState[s]" class="w-full h-full object-contain" />
+                               <span v-else class="material-symbols-outlined text-xs text-outline opacity-40">image</span>
+                           </div>
+                           
+                           <span>{{ s }}</span>
                        </button>
                    </div>
 
                     <!-- Main Mockup Container -->
-                    <div class="relative w-full aspect-[4/5] flex items-center justify-center max-w-2xl">
-                        <!-- SVG ClipPaths Definition -->
-                        <svg width="0" height="0" class="absolute">
-                          <defs>
-                            <clipPath id="shirtCliptee" clipPathUnits="objectBoundingBox">
-                              <path d="M 0.35,0.136 L 0.25,0.181 L 0.15,0.34 L 0.25,0.386 L 0.25,0.863 L 0.75,0.863 L 0.75,0.386 L 0.85,0.34 L 0.75,0.181 L 0.65,0.136 L 0.6,0.204 C 0.55,0.245 0.45,0.245 0.4,0.204 Z" />
-                            </clipPath>
-                            <clipPath id="shirtCliphoodie" clipPathUnits="objectBoundingBox">
-                              <path d="M 0.325,0.114 L 0.225,0.159 L 0.125,0.318 L 0.225,0.364 L 0.225,0.864 L 0.775,0.864 L 0.775,0.364 L 0.875,0.318 L 0.775,0.159 L 0.675,0.114 Z" />
-                            </clipPath>
-                            <clipPath id="shirtClipsweatshirt" clipPathUnits="objectBoundingBox">
-                              <path d="M 0.35,0.125 L 0.238,0.17 L 0.15,0.33 L 0.238,0.375 L 0.238,0.864 L 0.763,0.864 L 0.763,0.375 L 0.85,0.33 L 0.763,0.17 L 0.675,0.125 Z" />
-                            </clipPath>
-                          </defs>
-                        </svg>
+                     <div class="relative w-full aspect-[4/5] flex items-center justify-center max-w-2xl">
+                          <!-- Masked color base & image blend wrapper using solid silhouette mask -->
+                          <div class="absolute inset-0 transition-all duration-300"
+                               :style="'mask-image: url(\\'' + activeMaskUrl + '\\'); -webkit-mask-image: url(\\'' + activeMaskUrl + '\\'); mask-size: cover; -webkit-mask-size: cover; mask-position: center; -webkit-mask-position: center; mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat; background-color: ' + color.hex + ';'">
+                              
+                              <!-- Real mockup image with native multiply blend -->
+                              <img id="shirtMockupImg" 
+                                   :src="activeMockupUrl" 
+                                   class="absolute inset-0 w-full h-full object-cover mix-blend-multiply transition-all duration-300"
+                                   style="pointer-events: none; user-select: none;" />
+                          </div></div>
 
-                        <div class="shirt-mockup-container relative w-[85%] max-w-[420px] aspect-square flex items-center justify-center bg-white" 
-                             style="filter: drop-shadow(0 14px 28px rgba(0,0,0,0.18)); border-radius: 12px; overflow: visible;">
-                            
-                            <!-- 1. Color layer (clipped) -->
-                            <div class="absolute inset-0 transition-all duration-300"
-                                 :style="{ backgroundColor: color.hex, clipPath: 'url(#shirtClip' + style + ')' }">
-                            </div>
-
-                            <!-- 2. Texture layer (clipped & blended) -->
-                            <img id="shirtMockupImg" 
-                                 :src="'assets/mockup-' + style + '.jpg'" 
-                                 class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90 transition-all duration-300"
-                                 :style="{ clipPath: 'url(#shirtClip' + style + ')' }"
-                                 style="pointer-events: none; user-select: none;" />
-
-                            <!-- 3. Unclipped Printable Area overlay -->
-                            <div class="print-area absolute border border-dashed border-[#D4AF37]/50 canvas-area flex flex-col items-center justify-center" 
-                                 id="printArea" 
-                                 aria-label="Printable Area">
-                                <div class="print-hint font-label-sm text-[#D4AF37]/60 uppercase tracking-[0.2em] opacity-40 select-none flex flex-col items-center justify-center gap-1 pointer-events-none" id="printHint" style="z-index: 0;">
-                                  <span class="material-symbols-outlined text-xl">add_photo_alternate</span>
-                                  <span class="text-[9px]">Print Zone</span>
-                                </div>
-                                <canvas id="customCanvas" class="absolute inset-0 z-10"></canvas>
-                                <div id="snapGuideV" class="snap-guide absolute top-0 bottom-0 w-[1px]" style="left: 50%;"></div>
-                                <div id="snapGuideH" class="snap-guide absolute left-0 right-0 h-[1px]" style="top: 50%;"></div>
-                            </div>
-                        </div>
+                         <!-- Unclipped Printable Area overlay -->
+                         <div :class="['print-area absolute border border-dashed border-[#D4AF37]/50 canvas-area flex flex-col items-center justify-center', layers.length === 0 ? 'is-empty' : '']"
+                              id="printArea" 
+                              aria-label="Printable Area">
+                             <div class="print-hint font-label-sm text-[#D4AF37]/60 uppercase tracking-[0.2em] opacity-40 select-none flex flex-col items-center justify-center gap-1 pointer-events-none" id="printHint" style="z-index: 0;">
+                               <span class="material-symbols-outlined text-xl">add_photo_alternate</span>
+                               <span class="text-[9px]">Print Zone</span>
+                             </div>
+                             <canvas id="customCanvas" class="absolute inset-0 z-10"></canvas>
+                             <div id="snapGuideV" class="snap-guide absolute top-0 bottom-0 w-[1px]" style="left: 50%;"></div>
+                             <div id="snapGuideH" class="snap-guide absolute left-0 right-0 h-[1px]" style="top: 50%;"></div>
+                         </div>
                     </div>
 
-                   <!-- Zoom and Rotation tools layout overlay -->
-                   <div class="absolute bottom-8 right-8 flex flex-col gap-2 z-10">
-                       <button class="p-3 bg-surface border border-outline-variant/20 hover:text-secondary transition-colors" id="btnUndo" title="Undo (Ctrl+Z)"><span class="material-symbols-outlined text-base">undo</span></button>
-                       <button class="p-3 bg-surface border border-outline-variant/20 hover:text-secondary transition-colors" id="btnRedo" title="Redo (Ctrl+Y)"><span class="material-symbols-outlined text-base">redo</span></button>
-                       <button class="p-3 bg-surface border border-outline-variant/20 hover:text-secondary transition-colors" onclick="tweak(L => L.scale = Math.min(4, L.scale + 0.1))"><span class="material-symbols-outlined text-base">zoom_in</span></button>
-                       <button class="p-3 bg-surface border border-outline-variant/20 hover:text-secondary transition-colors" onclick="tweak(L => L.scale = Math.max(0.3, L.scale - 0.1))"><span class="material-symbols-outlined text-base">zoom_out</span></button>
-                       <button class="p-3 bg-surface border border-outline-variant/20 hover:text-secondary transition-colors" onclick="tweak(L => L.rotation += 15)"><span class="material-symbols-outlined text-base">rotate_right</span></button>
-                   </div>
+                    <!-- Element Controls Toolbar -->
+                    <div v-show="selectedId" class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-surface/90 backdrop-blur-md px-6 py-2.5 border border-secondary/30 rounded-full shadow-lg flex items-center gap-3.5 z-20 transition-all duration-300">
+                        <span class="text-[10px] uppercase font-bold tracking-widest text-secondary border-r border-outline-variant/30 pr-3.5 select-none">Layer Tools</span>
+                        
+                        <!-- Align Horizontally -->
+                        <button @click="alignCenterH" class="hover:text-secondary text-primary transition-colors flex items-center justify-center p-1.5 rounded hover:bg-surface-container-high" title="Center Horizontally">
+                            <span class="material-symbols-outlined text-lg">align_horizontal_center</span>
+                        </button>
+                        
+                        <!-- Align Vertically -->
+                        <button @click="alignCenterV" class="hover:text-secondary text-primary transition-colors flex items-center justify-center p-1.5 rounded hover:bg-surface-container-high" title="Center Vertically">
+                            <span class="material-symbols-outlined text-lg">align_vertical_center</span>
+                        </button>
+                        
+                        <!-- Flip Horizontally -->
+                        <button @click="flipObjectH" class="hover:text-secondary text-primary transition-colors flex items-center justify-center p-1.5 rounded hover:bg-surface-container-high" title="Flip Horizontally">
+                            <span class="material-symbols-outlined text-lg">flip</span>
+                        </button>
+                        
+                        <!-- Flip Vertically -->
+                        <button @click="flipObjectV" class="hover:text-secondary text-primary transition-colors flex items-center justify-center p-1.5 rounded hover:bg-surface-container-high" title="Flip Vertically">
+                            <span class="material-symbols-outlined text-lg">flip_to_back</span>
+                        </button>
+                        
+                        <!-- Duplicate -->
+                        <button @click="duplicateLayer" class="hover:text-secondary text-primary transition-colors flex items-center justify-center p-1.5 rounded hover:bg-surface-container-high" title="Duplicate Layer">
+                            <span class="material-symbols-outlined text-lg">content_copy</span>
+                        </button>
+
+                        <!-- Z-Index: Bring Forward -->
+                        <button @click="bringForward" class="hover:text-secondary text-primary transition-colors flex items-center justify-center p-1.5 rounded hover:bg-surface-container-high" title="Bring Forward">
+                            <span class="material-symbols-outlined text-lg">flip_to_front</span>
+                        </button>
+
+                        <!-- Z-Index: Send Backward -->
+                        <button @click="sendBackward" class="hover:text-secondary text-primary transition-colors flex items-center justify-center p-1.5 rounded hover:bg-surface-container-high" title="Send Backward">
+                            <span class="material-symbols-outlined text-lg">select_all</span>
+                        </button>
+
+                        <!-- Delete -->
+                        <button @click="deleteLayer(selectedId)" class="text-rose-600 hover:bg-rose-50 transition-colors flex items-center justify-center p-1.5 rounded ml-2" title="Delete Layer">
+                            <span class="material-symbols-outlined text-lg">delete</span>
+                        </button>
+                    </div>
+
+                    <!-- Zoom and Rotation tools layout overlay -->
+                    <div class="absolute bottom-8 right-8 flex flex-col gap-2 z-10">
+                        <button @click="undo" :style="{ opacity: canUndo ? 1 : 0.4 }" class="p-3 bg-surface border border-outline-variant/20 hover:text-secondary transition-colors" id="btnUndo" title="Undo (Ctrl+Z)"><span class="material-symbols-outlined text-base">undo</span></button>
+                        <button @click="redo" :style="{ opacity: canRedo ? 1 : 0.4 }" class="p-3 bg-surface border border-outline-variant/20 hover:text-secondary transition-colors" id="btnRedo" title="Redo (Ctrl+Y)"><span class="material-symbols-outlined text-base">redo</span></button>
+                        <button @click="zoomIn" class="p-3 bg-surface border border-outline-variant/20 hover:text-secondary transition-colors"><span class="material-symbols-outlined text-base">zoom_in</span></button>
+                        <button @click="zoomOut" class="p-3 bg-surface border border-outline-variant/20 hover:text-secondary transition-colors"><span class="material-symbols-outlined text-base">zoom_out</span></button>
+                        <button @click="rotateRight" class="p-3 bg-surface border border-outline-variant/20 hover:text-secondary transition-colors"><span class="material-symbols-outlined text-base">rotate_right</span></button>
+                    </div>
                </section>
 
                <!-- Right Side Panel -->
                <aside class="w-full flex flex-col gap-8 md:w-[24%]">
                    <section class="bg-surface p-6 border border-outline-variant/20 shadow-sm">
-                       <h3 class="font-label-sm text-label-sm uppercase mb-6 tracking-widest text-on-surface-variant">Design Manifest</h3>
+                       <div class="mb-4">
+                           <h3 class="font-label-sm text-label-sm uppercase mb-1 tracking-widest text-on-surface-variant">Design Manifest</h3>
+                           <span class="text-[11px] text-outline uppercase font-semibold">Active Base: <span id="infoStyle" class="text-primary font-bold">Unisex Atelier Tee</span></span>
+                       </div>
                        
                        <div class="mb-8">
                            <label class="font-label-sm text-label-sm uppercase mb-3 block text-on-surface-variant">Sizing Selection</label>
@@ -280,7 +328,7 @@
                                <div class="flex justify-between items-baseline mt-2">
                                    <span class="font-label-md text-[14px]">Total Price</span>
                                    <span class="font-headline-sm text-headline-sm text-primary">฿{{ totalPrice.toLocaleString() }}</span>
-                               </div>
+                                </div>
                                <span class="text-[9px] uppercase tracking-widest text-secondary font-bold">Premium Atelier dropship pricing</span>
                            </div>
 
@@ -427,10 +475,13 @@
        </div>
     `,
     setup() {
+      // User auth session
+      const currentUser = ref(null);
+
       // Reactive state variables
       const style = ref('tee');
       const color = ref(SHIRT_COLORS[0]);
-      const side = ref('front'); // front | back | left | right
+      const side = ref('front'); // front | back
       const activeTab = ref('garment');
 
       const textInput = ref('');
@@ -454,6 +505,15 @@
         right: ''
       });
 
+      // Miniature visual previews next to the front/back switchers
+      const thumbnailState = reactive({
+        front: '',
+        back: ''
+      });
+
+      // Print area exceeded check flag
+      const isOutsidePrintArea = ref(false);
+
       // Checkout financials
       const checkoutShipping = ref(50);
       const checkoutNet = ref(0);
@@ -463,9 +523,9 @@
       let isRestoringState = false;
       let zCounter = 1;
 
-      // History states
-      const history = [];
-      let historyIndex = -1;
+      // History states (reactive refs to sync undo/redo buttons live)
+      const history = ref([]);
+      const historyIndex = ref(-1);
 
       // Computed properties
       const totalQty = computed(() => {
@@ -481,6 +541,65 @@
         return layers.value;
       });
 
+      const activeMockupUrl = computed(() => {
+        let sideKey = side.value === 'back' ? 'back' : 'front';
+        const styleKey = style.value;
+        if (styleKey === 'tee') {
+          return `assets/mockup-tee_${sideKey}.png?v=2`;
+        } else if (styleKey === 'hoodie') {
+          return `assets/mockup-hoodie-${sideKey}.png?v=2`;
+        } else if (styleKey === 'sweatshirt') {
+          return `assets/mockup-sweatshirt-${sideKey}.png?v=2`;
+        }
+        return `assets/mockup-tee_${sideKey}.png?v=2`; // fallback
+      });
+
+      const activeMaskUrl = computed(() => {
+        let sideKey = side.value === 'back' ? 'back' : 'front';
+        const styleKey = style.value;
+        if (styleKey === 'tee') {
+          return `assets/mockup-tee_${sideKey}_mask.png?v=2`;
+        } else if (styleKey === 'hoodie') {
+          return `assets/mockup-hoodie-${sideKey}_mask.png?v=2`;
+        } else if (styleKey === 'sweatshirt') {
+          return `assets/mockup-sweatshirt-${sideKey}_mask.png?v=2`;
+        }
+        return `assets/mockup-tee_${sideKey}_mask.png?v=2`; // fallback
+      });
+
+      const canUndo = computed(() => historyIndex.value > 0);
+      const canRedo = computed(() => historyIndex.value < history.value.length - 1);
+
+      // Watchers for typography properties editing in real time
+      watch(textInput, (newVal) => {
+        const active = canvas.getActiveObject();
+        if (active && active.layerType === 'text' && !isRestoringState) {
+          active.set('text', newVal);
+          canvas.requestRenderAll();
+          syncLayers();
+        }
+      });
+
+      watch(textFont, (newVal) => {
+        const active = canvas.getActiveObject();
+        if (active && active.layerType === 'text' && !isRestoringState) {
+          active.set('fontFamily', newVal);
+          canvas.requestRenderAll();
+          saveHistory();
+          syncLayers();
+        }
+      });
+
+      watch(textColor, (newVal) => {
+        const active = canvas.getActiveObject();
+        if (active && active.layerType === 'text' && !isRestoringState) {
+          active.set('fill', newVal);
+          canvas.requestRenderAll();
+          saveHistory();
+          syncLayers();
+        }
+      });
+
       // Watchers for selections and layers list sync
       function syncLayers() {
         if (!canvas) return;
@@ -490,6 +609,112 @@
           text: obj.text || '',
           src: obj.src || (obj._element ? obj._element.src : '')
         }));
+        updateCurrentThumbnail();
+      }
+
+      function updateCurrentThumbnail() {
+        if (!canvas || isRestoringState) return;
+        
+        // Temporarily clear selection box to take clean screenshot
+        const activeObj = canvas.getActiveObject();
+        if (activeObj) {
+          canvas.discardActiveObject();
+          canvas.requestRenderAll();
+        }
+        
+        const base64 = canvas.toDataURL({
+          format: 'png',
+          quality: 0.5,
+          multiplier: 0.2
+        });
+        
+        thumbnailState[side.value] = base64;
+        
+        if (activeObj) {
+          canvas.setActiveObject(activeObj);
+          canvas.requestRenderAll();
+        }
+      }
+
+      function generateAllThumbnails() {
+        if (!canvas) return;
+        const originalSide = side.value;
+        isRestoringState = true;
+        
+        // Render front thumbnail
+        const frontJSON = canvasState.front;
+        if (frontJSON && frontJSON.trim() !== '') {
+          canvas.loadFromJSON(frontJSON, () => {
+            canvas.discardActiveObject();
+            canvas.requestRenderAll();
+            thumbnailState.front = canvas.toDataURL({ format: 'png', quality: 0.5, multiplier: 0.2 });
+            
+            // Render back thumbnail
+            const backJSON = canvasState.back;
+            if (backJSON && backJSON.trim() !== '') {
+              canvas.loadFromJSON(backJSON, () => {
+                canvas.discardActiveObject();
+                canvas.requestRenderAll();
+                thumbnailState.back = canvas.toDataURL({ format: 'png', quality: 0.5, multiplier: 0.2 });
+                restoreSide(originalSide);
+              });
+            } else {
+              thumbnailState.back = '';
+              restoreSide(originalSide);
+            }
+          });
+        } else {
+          thumbnailState.front = '';
+          const backJSON = canvasState.back;
+          if (backJSON && backJSON.trim() !== '') {
+            canvas.loadFromJSON(backJSON, () => {
+              canvas.discardActiveObject();
+              canvas.requestRenderAll();
+              thumbnailState.back = canvas.toDataURL({ format: 'png', quality: 0.5, multiplier: 0.2 });
+              restoreSide(originalSide);
+            });
+          } else {
+            thumbnailState.back = '';
+            restoreSide(originalSide);
+          }
+        }
+      }
+
+      function restoreSide(targetSide) {
+        const lay = VIEW_LAYOUTS[targetSide];
+        canvas.clear();
+        canvas.setDimensions({ width: lay.pxW, height: lay.pxH });
+        const saved = canvasState[targetSide];
+        if (saved && saved.trim() !== '') {
+          canvas.loadFromJSON(saved, () => {
+            canvas.requestRenderAll();
+            isRestoringState = false;
+            syncLayers();
+            checkPrintAreaBoundaries();
+          });
+        } else {
+          canvas.requestRenderAll();
+          isRestoringState = false;
+          syncLayers();
+          checkPrintAreaBoundaries();
+        }
+      }
+
+      function checkPrintAreaBoundaries() {
+        if (!canvas) return;
+        let outside = false;
+        canvas.getObjects().forEach((obj) => {
+          const rect = obj.getBoundingRect(true, true);
+          if (
+            rect.left < 0 ||
+            rect.top < 0 ||
+            rect.left + rect.width > canvas.width ||
+            rect.top + rect.height > canvas.height
+          ) {
+            outside = true;
+          }
+        });
+        isOutsidePrintArea.value = outside;
       }
 
       /* ============ FABRIC CANVAS SETUP ============ */
@@ -506,17 +731,41 @@
         fabric.Object.prototype.cornerColor = '#D4AF37';
         fabric.Object.prototype.cornerStrokeColor = '#1c1b1b';
         fabric.Object.prototype.borderColor = '#D4AF37';
-        fabric.Object.prototype.cornerSize = 8;
-        fabric.Object.prototype.padding = 4;
+        fabric.Object.prototype.cornerSize = 10;
+        fabric.Object.prototype.padding = 6;
 
         canvas.on('selection:created', () => {
           const active = canvas.getActiveObject();
-          if (active) selectedId.value = active.id;
+          if (active) {
+            selectedId.value = active.id;
+            if (active.layerType === 'text') {
+              isRestoringState = true;
+              textInput.value = active.text || '';
+              textFont.value = active.fontFamily || FONTS[0].family;
+              textColor.value = active.fill || '#ffffff';
+              isRestoringState = false;
+              activeTab.value = 'text';
+            } else {
+              activeTab.value = 'design';
+            }
+          }
         });
 
         canvas.on('selection:updated', () => {
           const active = canvas.getActiveObject();
-          if (active) selectedId.value = active.id;
+          if (active) {
+            selectedId.value = active.id;
+            if (active.layerType === 'text') {
+              isRestoringState = true;
+              textInput.value = active.text || '';
+              textFont.value = active.fontFamily || FONTS[0].family;
+              textColor.value = active.fill || '#ffffff';
+              isRestoringState = false;
+              activeTab.value = 'text';
+            } else {
+              activeTab.value = 'design';
+            }
+          }
         });
 
         canvas.on('selection:cleared', () => {
@@ -525,18 +774,30 @@
 
         canvas.on('object:modified', () => {
           saveHistory();
+          syncLayers();
+          checkPrintAreaBoundaries();
         });
 
         canvas.on('object:added', () => {
           if (!isRestoringState) {
             saveHistory();
             syncLayers();
+            checkPrintAreaBoundaries();
           }
         });
 
         canvas.on('object:removed', () => {
           if (!isRestoringState) {
             saveHistory();
+            syncLayers();
+            checkPrintAreaBoundaries();
+          }
+        });
+
+        canvas.on('text:changed', (e) => {
+          const obj = e.target;
+          if (obj && obj.id === selectedId.value) {
+            textInput.value = obj.text;
             syncLayers();
           }
         });
@@ -547,7 +808,7 @@
       function initSnapping() {
         canvas.on('object:moving', (e) => {
           const obj = e.target;
-          const snapThreshold = 6;
+          const snapThreshold = 10;
           const canvasCenterX = canvas.width / 2;
           const canvasCenterY = canvas.height / 2;
 
@@ -570,6 +831,14 @@
             const hGuide = document.getElementById('snapGuideH');
             if (hGuide) hGuide.style.opacity = '0';
           }
+          checkPrintAreaBoundaries();
+        });
+
+        canvas.on('object:moving', () => {
+          checkPrintAreaBoundaries();
+        });
+        canvas.on('object:scaling', () => {
+          checkPrintAreaBoundaries();
         });
 
         canvas.on('object:modified', () => {
@@ -583,45 +852,37 @@
       /* ============ HISTORY STATE STACK ============ */
       function saveHistory() {
         if (isRestoringState) return;
-        if (historyIndex < history.length - 1) {
-          history.splice(historyIndex + 1);
+        if (historyIndex.value < history.value.length - 1) {
+          history.value.splice(historyIndex.value + 1);
         }
-        history.push(JSON.stringify(canvas.toJSON(['id', 'layerType', 'src', 'flipX'])));
-        historyIndex = history.length - 1;
-        updateUndoRedoButtons();
+        history.value.push(JSON.stringify(canvas.toJSON(['id', 'layerType', 'src', 'flipX', 'flipY'])));
+        historyIndex.value = history.value.length - 1;
       }
 
       function undo() {
-        if (historyIndex > 0) {
+        if (canUndo.value) {
           isRestoringState = true;
-          historyIndex--;
-          canvas.loadFromJSON(history[historyIndex], () => {
+          historyIndex.value--;
+          canvas.loadFromJSON(history.value[historyIndex.value], () => {
             canvas.requestRenderAll();
             isRestoringState = false;
             syncLayers();
-            updateUndoRedoButtons();
+            checkPrintAreaBoundaries();
           });
         }
       }
 
       function redo() {
-        if (historyIndex < history.length - 1) {
+        if (canRedo.value) {
           isRestoringState = true;
-          historyIndex++;
-          canvas.loadFromJSON(history[historyIndex], () => {
+          historyIndex.value++;
+          canvas.loadFromJSON(history.value[historyIndex.value], () => {
             canvas.requestRenderAll();
             isRestoringState = false;
             syncLayers();
-            updateUndoRedoButtons();
+            checkPrintAreaBoundaries();
           });
         }
-      }
-
-      function updateUndoRedoButtons() {
-        const undoBtn = document.getElementById('btnUndo');
-        const redoBtn = document.getElementById('btnRedo');
-        if (undoBtn) undoBtn.style.opacity = historyIndex > 0 ? '1' : '0.4';
-        if (redoBtn) redoBtn.style.opacity = historyIndex < history.length - 1 ? '1' : '0.4';
       }
 
       /* ============ LAYER ACTIONS ============ */
@@ -630,6 +891,12 @@
         if (obj) {
           canvas.setActiveObject(obj);
           canvas.requestRenderAll();
+          
+          if (obj.layerType === 'text') {
+            activeTab.value = 'text';
+          } else {
+            activeTab.value = 'design';
+          }
         }
       }
 
@@ -657,7 +924,9 @@
         const obj = canvas.getObjects().find(o => o.id === id);
         if (obj) {
           canvas.remove(obj);
+          canvas.discardActiveObject();
           canvas.requestRenderAll();
+          selectedId.value = null;
         }
       }
 
@@ -686,14 +955,139 @@
         }
       }
 
+      /* ============ CANVAS FLOATING TOOL ACTION ALIGNMENTS ============ */
+      function alignCenterH() {
+        const active = canvas.getActiveObject();
+        if (active) {
+          canvas.centerObjectH(active);
+          active.setCoords();
+          canvas.requestRenderAll();
+          saveHistory();
+          checkPrintAreaBoundaries();
+        }
+      }
+
+      function alignCenterV() {
+        const active = canvas.getActiveObject();
+        if (active) {
+          canvas.centerObjectV(active);
+          active.setCoords();
+          canvas.requestRenderAll();
+          saveHistory();
+          checkPrintAreaBoundaries();
+        }
+      }
+
+      function flipObjectH() {
+        const active = canvas.getActiveObject();
+        if (active) {
+          active.set('flipX', !active.flipX);
+          canvas.requestRenderAll();
+          saveHistory();
+        }
+      }
+
+      function flipObjectV() {
+        const active = canvas.getActiveObject();
+        if (active) {
+          active.set('flipY', !active.flipY);
+          canvas.requestRenderAll();
+          saveHistory();
+        }
+      }
+
+      function bringForward() {
+        const active = canvas.getActiveObject();
+        if (active) {
+          canvas.bringForward(active);
+          canvas.requestRenderAll();
+          saveHistory();
+          syncLayers();
+        }
+      }
+
+      function sendBackward() {
+        const active = canvas.getActiveObject();
+        if (active) {
+          canvas.sendBackwards(active);
+          canvas.requestRenderAll();
+          saveHistory();
+          syncLayers();
+        }
+      }
+
+      function duplicateLayer() {
+        const active = canvas.getActiveObject();
+        if (active) {
+          active.clone((cloned) => {
+            canvas.discardActiveObject();
+            cloned.set({
+              left: cloned.left + 20,
+              top: cloned.top + 20,
+              id: 'L' + (++zCounter) + '_' + Math.random().toString(36).substring(2, 6),
+              evented: true,
+            });
+            canvas.add(cloned);
+            canvas.setActiveObject(cloned);
+            canvas.requestRenderAll();
+            saveHistory();
+            syncLayers();
+          }, ['id', 'layerType', 'src']);
+        }
+      }
+
+      function zoomIn() {
+        const active = canvas.getActiveObject();
+        if (active) {
+          const sc = Math.min(4, active.scaleX + 0.1);
+          active.set({ scaleX: sc, scaleY: sc });
+          active.setCoords();
+          canvas.requestRenderAll();
+          saveHistory();
+          checkPrintAreaBoundaries();
+        }
+      }
+
+      function zoomOut() {
+        const active = canvas.getActiveObject();
+        if (active) {
+          const sc = Math.max(0.3, active.scaleX - 0.1);
+          active.set({ scaleX: sc, scaleY: sc });
+          active.setCoords();
+          canvas.requestRenderAll();
+          saveHistory();
+          checkPrintAreaBoundaries();
+        }
+      }
+
+      function rotateRight() {
+        const active = canvas.getActiveObject();
+        if (active) {
+          const rot = (active.angle + 15) % 360;
+          active.set('angle', rot);
+          active.setCoords();
+          canvas.requestRenderAll();
+          saveHistory();
+          checkPrintAreaBoundaries();
+        }
+      }
+
       function addText() {
+        const activeTextObj = canvas.getActiveObject();
+        if (activeTextObj && activeTextObj.layerType === 'text') {
+          canvas.discardActiveObject();
+          canvas.requestRenderAll();
+          textInput.value = '';
+          return;
+        }
+
         if (!textInput.value || !textInput.value.trim()) return;
         const textObj = new fabric.IText(textInput.value.trim(), {
           left: canvas.width / 2,
           top: canvas.height / 2,
           fontFamily: textFont.value,
           fill: textColor.value,
-          fontSize: 20,
+          fontSize: 36, // double default to match high-res
           originX: 'center',
           originY: 'center',
           id: 'L' + (++zCounter) + '_' + Math.random().toString(36).substring(2, 6),
@@ -754,17 +1148,11 @@
         if (!canvas || isRestoringState) return;
 
         // 1. Serialize active side to canvasState
-        canvasState[side.value] = JSON.stringify(canvas.toJSON(['id', 'layerType', 'src', 'flipX']));
+        canvasState[side.value] = JSON.stringify(canvas.toJSON(['id', 'layerType', 'src', 'flipX', 'flipY']));
 
         // 2. Transition visual side
         side.value = newSide;
         
-        // Update Mockup image horizontal flip on back/right sides
-        const imgEl = document.getElementById('shirtMockupImg');
-        if (imgEl) {
-          imgEl.style.transform = (newSide === 'back' || newSide === 'right') ? 'scaleX(-1)' : '';
-        }
-
         // 3. Move and Resize Printable Zone box layout using responsive percentages
         const lay = VIEW_LAYOUTS[newSide];
         const pa = document.getElementById('printArea');
@@ -787,11 +1175,13 @@
             canvas.requestRenderAll();
             isRestoringState = false;
             syncLayers();
+            checkPrintAreaBoundaries();
           });
         } else {
           canvas.requestRenderAll();
           isRestoringState = false;
           syncLayers();
+          checkPrintAreaBoundaries();
         }
       }
 
@@ -799,27 +1189,25 @@
       function onStyleChange() {
         const def = STYLES[style.value];
         document.getElementById('infoStyle').textContent = def.name;
+        // Regenerate canvas thumbnails for new style
+        generateAllThumbnails();
       }
 
       function setColor(c) {
         color.value = c;
-        document.getElementById('infoSwatch').style.background = c.hex;
       }
 
       function toggleSize(sz) {
         sizes[sz] = !sizes[sz];
-        updatePrice();
       }
 
       function changeQty(diff) {
         qty.value = Math.max(1, qty.value + diff);
-        updatePrice();
       }
 
       /* ============ SAVE TEMPLATE & ORDER SUBMISSION ============ */
       function openTemplateSaveModal() {
-        const userJson = localStorage.getItem('erp_user') || localStorage.getItem('currentUser');
-        if (!userJson) {
+        if (!currentUser.value) {
           alert('กรุณาเข้าสู่ระบบก่อนบันทึกเทมเพลต / Please sign in to save templates.');
           window.location.href = 'login.html?redirect=custom-shirt.html';
           return;
@@ -829,8 +1217,7 @@
       }
 
       async function saveTemplateSubmit() {
-        const userJson = localStorage.getItem('erp_user') || localStorage.getItem('currentUser');
-        const user = JSON.parse(userJson);
+        if (!currentUser.value) return;
         const nameVal = document.getElementById('templateNameInput').value.trim();
         if (!nameVal) {
           alert('กรุณาใส่ชื่อเทมเพลต / Please enter template name.');
@@ -840,7 +1227,7 @@
         document.getElementById('templateNameModal').classList.add('hidden');
 
         // Capture current design canvas states
-        canvasState[side.value] = JSON.stringify(canvas.toJSON(['id', 'layerType', 'src', 'flipX']));
+        canvasState[side.value] = JSON.stringify(canvas.toJSON(['id', 'layerType', 'src', 'flipX', 'flipY']));
 
         // Export current side preview thumbnail
         canvas.discardActiveObject();
@@ -850,7 +1237,7 @@
         const payload = {
           id: editingTemplateId.value,
           name: nameVal,
-          user_id: user._id || user.id,
+          user_id: currentUser.value._id || currentUser.value.id,
           style: style.value,
           color: {
             hex: color.value.hex,
@@ -859,8 +1246,8 @@
           views: {
             front: canvasState.front,
             back: canvasState.back,
-            left: canvasState.left,
-            right: canvasState.right
+            left: '',
+            right: ''
           },
           preview_image: base64Preview
         };
@@ -887,8 +1274,7 @@
       }
 
       function checkout() {
-        const userJson = localStorage.getItem('erp_user') || localStorage.getItem('currentUser');
-        if (!userJson) {
+        if (!currentUser.value) {
           alert('กรุณาเข้าสู่ระบบก่อนสั่งซื้อสินค้า / Please sign in to order.');
           window.location.href = 'login.html?redirect=custom-shirt.html';
           return;
@@ -900,9 +1286,8 @@
           return;
         }
 
-        const user = JSON.parse(userJson);
-        document.getElementById('shipName').value = user.username || '';
-        document.getElementById('shipPhone').value = user.phone_number || '';
+        document.getElementById('shipName').value = currentUser.value.username || '';
+        document.getElementById('shipPhone').value = currentUser.value.phone_number || '';
 
         const subtotal = totalPrice.value;
         const shipping = subtotal > 2000 ? 0 : 50;
@@ -916,8 +1301,7 @@
 
       async function submitCheckout() {
         document.getElementById('checkoutModal').classList.add('hidden');
-        const userJson = localStorage.getItem('erp_user') || localStorage.getItem('currentUser');
-        const user = JSON.parse(userJson);
+        if (!currentUser.value) return;
 
         canvas.discardActiveObject();
         canvas.requestRenderAll();
@@ -926,13 +1310,13 @@
         const base64DesignImage = canvas.toDataURL({ format: 'png', quality: 0.95 });
 
         // Save current active side state
-        canvasState[side.value] = JSON.stringify(canvas.toJSON(['id', 'layerType', 'src', 'flipX']));
+        canvasState[side.value] = JSON.stringify(canvas.toJSON(['id', 'layerType', 'src', 'flipX', 'flipY']));
 
         const selectedSizes = Object.keys(sizes).filter(s => sizes[s]);
 
         // Combined labels of text layers inside all canvas views
         let customTextSummary = '';
-        ['front', 'back', 'left', 'right'].forEach((s) => {
+        ['front', 'back'].forEach((s) => {
           const raw = canvasState[s];
           if (raw) {
             try {
@@ -945,9 +1329,9 @@
 
         const orderPayload = {
           customer_snapshot: {
-            user_id: user._id || user.id || null,
-            username: user.username,
-            email: user.email,
+            user_id: currentUser.value._id || currentUser.value.id || null,
+            username: currentUser.value.username,
+            email: currentUser.value.email,
             phone_number: document.getElementById('shipPhone').value
           },
           shipping_address_snapshot: {
@@ -979,7 +1363,7 @@
                 selected_size: selectedSizes.join(', '),
                 uploaded_image_url: base64DesignImage,
                 custom_text: customTextSummary.trim() || 'None',
-                additional_note: `Base Color: ${color.value.name}. Design saved on all 4 workspaces.`
+                additional_note: `Base Color: ${color.value.name}. Design saved on front & back views.`
               },
               verify_history: []
             }
@@ -1017,7 +1401,12 @@
 
           editingTemplateId.value = template._id;
           templateName.value = template.name;
-          style.value = template.style;
+          
+          let mappedStyle = template.style;
+          if (mappedStyle === 'long') mappedStyle = 'hoodie';
+          else if (mappedStyle === 'polo' || mappedStyle === 'tank') mappedStyle = 'tee';
+          
+          style.value = mappedStyle;
           onStyleChange();
 
           const col = SHIRT_COLORS.find(c => c.hex === template.color.hex);
@@ -1027,8 +1416,8 @@
           if (template.views) {
             canvasState.front = template.views.front || '';
             canvasState.back = template.views.back || '';
-            canvasState.left = template.views.left || '';
-            canvasState.right = template.views.right || '';
+            canvasState.left = '';
+            canvasState.right = '';
 
             // Load initial front canvas state
             if (canvasState.front) {
@@ -1037,6 +1426,8 @@
                 canvas.requestRenderAll();
                 isRestoringState = false;
                 syncLayers();
+                checkPrintAreaBoundaries();
+                generateAllThumbnails();
               });
             }
           }
@@ -1048,6 +1439,9 @@
 
       /* ============ INITIALIZE ============ */
       onMounted(async () => {
+        // Run auth status check
+        checkUser();
+
         initCanvas();
 
         // Check if editing a template
@@ -1057,24 +1451,45 @@
         
         if (templateId) {
           await loadSavedTemplate(templateId);
-        } else if (styleParam && STYLES[styleParam]) {
-          style.value = styleParam;
-          onStyleChange();
+        } else if (styleParam) {
+          let mappedStyle = styleParam;
+          if (styleParam === 'long') {
+            mappedStyle = 'hoodie';
+          } else if (styleParam === 'polo' || styleParam === 'tank') {
+            mappedStyle = 'tee';
+            alert(`The selected collection style is designed using Unisex Atelier Tee template.`);
+          }
+          
+          if (STYLES[mappedStyle]) {
+            style.value = mappedStyle;
+            onStyleChange();
+          }
         }
 
-
-        
         // Handle file drop zones
         initUpload();
 
-        // Bind global undo/redo triggers
-        const undoBtn = document.getElementById('btnUndo');
-        const redoBtn = document.getElementById('btnRedo');
-        if (undoBtn) undoBtn.addEventListener('click', undo);
-        if (redoBtn) redoBtn.addEventListener('click', redo);
-
         saveHistory();
+        generateAllThumbnails();
       });
+
+      function checkUser() {
+        const userJson = localStorage.getItem('erp_user') || localStorage.getItem('currentUser');
+        if (userJson) {
+          try {
+            currentUser.value = JSON.parse(userJson);
+          } catch (e) {
+            console.error(e);
+          }
+        }
+      }
+
+      function logout() {
+        localStorage.removeItem('erp_user');
+        localStorage.removeItem('currentUser');
+        currentUser.value = null;
+        window.location.reload();
+      }
 
       function initUpload() {
         const fileIn = document.getElementById('artworkUpload');
@@ -1108,6 +1523,7 @@
       }
 
       return {
+        currentUser,
         style,
         color,
         side,
@@ -1128,6 +1544,14 @@
         TEXT_COLORS,
         FONTS,
         UNIT_PRICE,
+        activeMockupUrl,
+        activeMaskUrl,
+        thumbnailState,
+        isOutsidePrintArea,
+        history,
+        historyIndex,
+        canUndo,
+        canRedo,
         setSide,
         setColor,
         toggleSize,
@@ -1143,7 +1567,20 @@
         openTemplateSaveModal,
         saveTemplateSubmit,
         checkout,
-        submitCheckout
+        submitCheckout,
+        logout,
+        alignCenterH,
+        alignCenterV,
+        flipObjectH,
+        flipObjectV,
+        bringForward,
+        sendBackward,
+        duplicateLayer,
+        zoomIn,
+        zoomOut,
+        rotateRight,
+        undo,
+        redo
       };
     }
   }).mount('#app');

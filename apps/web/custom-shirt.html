@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VICTO — Customizer Atelier</title>
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Hanken+Grotesk:wght@400;500;600&family=Alex+Brush&family=Cinzel:wght@600;700&family=Courier+Prime&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -57,6 +57,14 @@
             z-index: 10;
             transition: all 0.3s ease;
         }
+        
+        /* Responsive Fabric.js Canvas Container Override */
+        .canvas-container,
+        .canvas-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
         .obsidian-btn {
             background: #1c1b1b;
             color: #ffffff;
@@ -99,11 +107,11 @@
         }
         .font-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
         }
         .font-card {
-            padding: 8px 4px;
+            padding: 10px 6px;
             border: 1px solid #c4c7c7;
             font-size: 11px;
             text-transform: uppercase;
@@ -267,6 +275,15 @@
         .layer-del:hover {
             background: rgba(186,26,26,0.1);
         }
+
+        /* Pulsing indicator for printable area when empty */
+        .print-area.is-empty .print-hint {
+            animation: pulse-border 2s infinite ease-in-out;
+        }
+        @keyframes pulse-border {
+            0%, 100% { border-color: rgba(212,175,55,0.3); }
+            50% { border-color: rgba(212,175,55,0.8); }
+        }
     </style>
 </head>
 <body class="bg-surface font-body-md text-on-surface overflow-x-hidden">
@@ -276,6 +293,6 @@
     <!-- CDNs and App Controller -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="js/custom-shirt.js"></script>
+    <script src="js/custom-shirt.js?v=6.1"></script>
 </body>
 </html>
