@@ -1,19 +1,16 @@
-# VICTO — แพลตฟอร์มสั่งผลิตและออกแบบเสื้อทีมแบบ Custom Print-on-Demand (POD)
+# VICTO — แพลตฟอร์มสั่งผลิตและออกแบบเสื้อผ้าพรีเมียมแบบ Premium Print-on-Demand (POD) Apparel Platform
 
-ยินดีต้อนรับสู่ **VICTO** แพลตฟอร์มอีคอมเมิร์ซระดับ MERN Stack ที่พัฒนาขึ้นเพื่อตอบโจทย์ธุรกิจสั่งผลิตเสื้อทีมแบบพิมพ์ตามสั่ง (Print-on-Demand) ไม่มีขั้นต่ำ และเครื่องมือจำลองการออกแบบเสื้อทีมเสมือนจริงบนหน้าเว็บที่ใช้งานง่ายบนทุกอุปกรณ์
+ยินดีต้อนรับสู่ **VICTO** แพลตฟอร์มอีคอมเมิร์ซระดับ MERN Stack ที่พัฒนาขึ้นเพื่อตอบโจทย์ธุรกิจออกแบบและสั่งผลิตเสื้อผ้าสำเร็จรูปเกรดพรีเมียมแบบพิมพ์ตามสั่ง (Premium Print-on-Demand Apparel Platform) ไม่มีขั้นต่ำ พร้อมแดชบอร์ดจัดการเทมเพลตดีไซน์ส่วนตัว และเครื่องมือจำลองการดีไซน์แบบโต้ตอบเสมือนจริง (Interactive Customizer Component) ที่ใช้งานง่ายและไหลลื่นบนทุกอุปกรณ์
 
 ---
 
 ## 👕 รูปแบบธุรกิจ (Business Model)
 
-VICTO ดำเนินธุรกิจในรูปแบบ **Print-on-Demand (POD) และ Custom Apparel** โดยมีจุดขายหลักดังนี้:
-*   **No Minimum Order**: ลูกค้าสามารถออกแบบและสั่งผลิตเสื้อเพียง 1 ตัว ก็ผลิตและส่งให้ได้ทันที เหมาะสำหรับเสื้อทีมขนาดเล็ก ทีมกีฬา E-Sports เสื้อพนักงานบริษัท หรืองานอีเวนต์เฉพาะกิจ
-*   **Apparel Focus**: มุ่งเน้นผลิตภัณฑ์เสื้อผ้าคุณภาพสูง ครอบคลุมเสื้อยืด (Tee), เสื้อโปโล (Polo), เสื้อสายเดี่ยว (Tank), และเสื้อแขนยาว (Long) ทรง Unisex ใส่สบาย ผลิตจากผ้า Cotton 100% เกรดพรีเมียม
-*   **Diverse Printing Tech**: นำเสนอเทคโนโลยีการจัดทำโลโก้และลวดลายบนเสื้อที่หลากหลาย ได้แก่:
-    *   *DTF (Direct to Film)*: สีสันสดคมชัด ไล่เฉดสีได้ระดับภาพถ่าย เหมาะกับลายพิมพ์ละเอียดสูง
-    *   *Sublimation*: พิมพ์สีซึมเข้าเนื้อผ้า เหมาะสำหรับเสื้อกีฬาพิมพ์ลายทั้งตัว
-    *   *การปักโลโก้ (Embroidery)*: ลุคเรียบร้อย ทนทานเป็นพิเศษ เหมาะกับยูนิฟอร์มองค์กร
-    *   *การสกรีนไฮเอนด์ (Screen Printing)*: เหมาะสำหรับการสั่งผลิตเสื้อทีมจำนวนมากเพื่อความคุ้มค่าสูงสุด
+VICTO ดำเนินธุรกิจในรูปแบบ **Premium Print-on-Demand (POD) Apparel Platform** โดยมีจุดขายหลักดังนี้:
+*   **Premium Apparel & Custom Templates**: มุ่งเน้นผลิตภัณฑ์เครื่องแต่งกายคัดสรรพิเศษเกรดพรีเมียม ครอบคลุมเสื้อยืด Unisex Atelier Tee, เสื้อฮู้ดหนานุ่ม Signature Luxe Hoodie, และเสื้อสเวตเตอร์ Premium Crew Sweatshirt โดยเปิดโอกาสให้ลูกค้าบันทึกผลงานการออกแบบเก็บเป็น "แม่แบบสินค้าส่วนตัว (Product Templates)" เพื่อนำกลับมาสั่งผลิตหรือปรับแก้ในภายหลังได้โดยง่าย
+*   **No Minimum Order & Dropshipping**: รองรับการสั่งซื้อและผลิตเสื้อไม่มีขั้นต่ำ แม้เพียง 1 ตัว ก็พร้อมส่งผลิตและจัดส่งทันที เหมาะสำหรับแบรนด์เสื้อผ้าแฟชั่นอิสระ, ยูนิฟอร์มองค์กรลุคหรูหรา และสตรีทแวร์
+*   **Atelier Colorway & Multi-Side Printing**: ตัวเลือกสีกรรมวิธีพิเศษ (Atelier Colorway) พร้อมความสามารถการวางอาร์ตเวิร์กและอักษรข้อความได้ถึง 4 ด้านอิสระ (ด้านหน้า, ด้านหลัง, ปลายแขนซ้าย, ปลายแขนขวา) แยก Canvas ออกจากกันโดยสมบูรณ์
+*   **Diverse Printing Tech**: นำเสนอเทคโนโลยีพิมพ์ลายพรีเมียม ได้แก่ DTF (Direct to Film) สีสันสดชัดไล่เฉดละมุน, Sublimation คมลึก, งานปักประณีต (Embroidery), และการสกรีนไฮเอนด์ (Screen Printing)
 
 ---
 
@@ -47,23 +44,26 @@ graph TD
 ## 🛠️ เจาะลึกทางเทคนิค (Tech Deep Dive)
 
 ### 1. โครงสร้างสถาปัตยกรรม (Architecture)
-VICTO ถูกสร้างขึ้นด้วยสถาปัตยกรรม **MERN Stack** ที่ลดทอนความซับซ้อนของหน้าบ้านโดยใช้ **Vanilla DOM Manipulation** ร่วมกับหลังบ้าน **Node.js/Express** ทำให้ระบบทำงานได้อย่างรวดเร็ว:
+VICTO ถูกสร้างขึ้นด้วยสถาปัตยกรรม **MERN Stack** ที่ผสมผสานเครื่องมือหน้าบ้านประสิทธิภาพสูง **Vue 3 (Data Reactivity)** และ **Fabric.js (Interactive Canvas)** ร่วมกับหลังบ้าน **Node.js/Express** ทำให้ระบบประมวลผลการจัดวางเลเยอร์และบันทึกข้อมูลได้อย่างไหลลื่นไร้รอยต่อ:
 
 ```
 apps/
   api/          # หลังบ้านควบคุม Express Server & API และการติดต่อ MongoDB
-  web/          # หน้าบ้าน Plain HTML, CSS และ Javascript ปราศจาก JS Framework
+  web/          # หน้าบ้านระดับ Atelier ดีไซน์ด้วย Tailwind CSS โหลดผ่านเซิร์ฟเวอร์
 ```
 
-*   **Express API Server**: เสิร์ฟ Static Files ของหน้าบ้านทั้งหมด และสร้าง API endpoint สำหรับความปลอดภัย (Auth), ข้อมูลสินค้าเสื้อผ้า (Products), ลูกค้า (Users), และการทำสรุปข้อมูลระบบสำหรับแอดมิน (Dashboard & Orders)
-*   **MongoDB (`custom-shop`)**: เก็บข้อมูลผ่าน Mongoose ODM โดยแบ่งเป็น 3 คอลเลกชันหลักคือ:
+*   **Express API Server**: เสิร์ฟ Static Files ของหน้าบ้านทั้งหมด และสร้าง API endpoint สำหรับความปลอดภัย (Auth), ข้อมูลสินค้าเสื้อผ้า (Products), ลูกค้า (Users), และการสร้าง/สืบค้น/ลบเทมเพลตดีไซน์ (Product Templates)
+*   **MongoDB (`custom-shop`)**: เก็บข้อมูลผ่าน Mongoose ODM โดยแบ่งเป็น 4 คอลเลกชันหลักคือ:
     *   [User.js](file:///c:/Workspace/week03/VIBE-CODE-MY-ECOMMERCE/apps/api/models/User.js): ข้อมูลสมาชิก สิทธิ์ และที่อยู่
     *   [Product.js](file:///c:/Workspace/week03/VIBE-CODE-MY-ECOMMERCE/apps/api/models/Product.js): ข้อมูลรายละเอียดของแบบเสื้อ ราคากลาง และรูปภาพ
-    *   [Order.js](file:///c:/Workspace/week03/VIBE-CODE-MY-ECOMMERCE/apps/api/models/Order.js): บันทึกข้อมูลคำสั่งทำเสื้อยืดทีม พร้อมเก็บ Snapshot ข้อมูลลูกค้าและที่อยู่ขณะสั่งซื้อ
+    *   [ProductTemplate.js](file:///c:/Workspace/week03/VIBE-CODE-MY-ECOMMERCE/apps/api/models/ProductTemplate.js): บันทึกข้อมูลแม่แบบเสื้อผ้าดีไซน์พิเศษ 4 มุมมอง พร้อมรูปภาพ Thumbnail พรีวิว
+    *   [Order.js](file:///c:/Workspace/week03/VIBE-CODE-MY-ECOMMERCE/apps/api/models/Order.js): บันทึกคำสั่งผลิตเสื้อยืดทีม พร้อมเก็บข้อมูลการเลือกไซส์และอิมเมจของแบบพิมพ์ลาย
 
-### 2. โครงสร้างโค้ดหน้าบ้านแบบ Vanilla (Vanilla Code Structure)
-*   **Pointer Events API & FileReader**: ระบบจำลองการย้ายตำแหน่ง (Drag), การย่อขยาย (Resize), และการหมุน (Rotate) ของลวดลายบนตัวเสื้อในไฟล์ [custom-shirt.js](file:///c:/Workspace/week03/VIBE-CODE-MY-ECOMMERCE/apps/web/js/custom-shirt.js) ถูกเขียนด้วย Javascript ดิบ โดยใช้ `PointerEvent` ร่วมกับ `FileReader` ในการอัปโหลดไฟล์ภาพของผู้ใช้
-*   **ERP Single Page Application (SPA)**: ตัวระบบ ERP ของแอดมินในไฟล์ [erp.js](file:///c:/Workspace/week03/VIBE-CODE-MY-ECOMMERCE/apps/web/js/erp.js) ควบคุมการเปลี่ยนหน้าจอและการจัดการ Element ใน DOM โดยใช้ฟังก์ชันเรนเดอร์ร่วมกับ `innerHTML` และดึงข้อมูลคำสั่งทำเสื้อทั้งหมดผ่าน API
+### 2. โครงสร้างโค้ดหน้าบ้านแบบ Single Page Component (SPA Paradigm)
+*   **Vue 3 & HTML Template String**: ไฟล์หน้าจอคัสตอมเสื้อ [custom-shirt.html](file:///c:/Workspace/week03/VIBE-CODE-MY-ECOMMERCE/apps/web/custom-shirt.html) ทำหน้าที่เป็นเพียง Loader Shell เปล่าเพื่อประสิทธิภาพความเร็วสูงสุด ขณะที่โครงสร้าง DOM และการจับคู่ข้อมูลความต้องการแบบเรียลไทม์ทั้งหมดถูกรวบรวมไว้ภายใต้ไฟล์ [custom-shirt.js](file:///c:/Workspace/week03/VIBE-CODE-MY-ECOMMERCE/apps/web/js/custom-shirt.js) ในรูปแบบ Template Component 
+*   **Fabric.js & Snapping Guidelines**: การย้ายตำแหน่ง เลเยอร์งานพิมพ์ ย่อขยาย หมุนลวดลาย ดำเนินการผ่านแคนวาสเวกเตอร์ของ Fabric.js พร้อมระบบไกด์ไลน์กึ่งกลางดึงดูดแนวตั้ง/แนวนอน (Center Snapping Guidelines) เพื่อความเป๊ะระดับพรีเมียม
+*   **Isolated Workspace States**: ระบบจะทำการ Serialize ข้อมูลแคนวาสของแต่ละด้านเสื้อเก็บลงในโมเดลแยกกันแบบเรียลไทม์ ทำให้ผู้ใช้สามารถออกแบบลายหน้า หลัง และแขนเสื้อแยกกันได้อิสระโดยข้อมูลไม่หายหรือปะปนกัน
+*   **ERP Order Preview**: ตัวระบบ ERP ใน [erp.js](file:///c:/Workspace/week03/VIBE-CODE-MY-ECOMMERCE/apps/web/js/erp.js) ของแอดมินหลังร้าน จะดึงรูปพรีวิว Base64 ของดีไซน์มาแสดงผลคู่กับรายการสั่งซื้อ เพื่อตรวจสอบความถูกต้องก่อนผลิตจริงส่งโรงพิมพ์
 *   **ระบบ Export ข้อมูล**: มีคำสั่งแปลงออเดอร์เสื้อเป็นโครงสร้าง CSV โดยการใช้สตริงด้วย UTF-8 BOM (`\uFEFF`) เพื่อให้โปรแกรม Excel เปิดภาษาไทยได้โดยไม่เพี้ยน
 
 ### 3. ระบบความสวยงามระดับพรีเมียม (Design Tokens, Glassmorphism & Animations)
