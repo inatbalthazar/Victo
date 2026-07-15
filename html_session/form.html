@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <title>Register Form</title>
+
+    <style>
+        .my-box {
+            border: 3px solid #731414;
+            padding: 30px;            
+            width: 450px;             
+            margin: 25px auto;         
+            background-color: #efe9df;
+            font-family: Arial, sans-serif;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            width: 90px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            width: 220px;
+            padding: 4px;
+        }
+
+        .phone-group {
+            display: flex;
+            gap: 3px;
+            width: 230px;
+        }
+
+        .phone-group input {
+            flex: 1;
+            width: 3px;
+        }
+    </style>
+
+</head>
+<body>
+    <center>
+        <div class="my-box">
+        <h1 style="color: #E50914; font-family: 'Bebas Neue', sans-serif; font-size: 55px; margin-top: 0;">Natflix</h1>
+        <p>Create your free account</p>
+
+            <form action="/api/order" method="post">
+                
+                <div class="input-group">
+                    <label for="cname">Name</label>
+                    <input id="cname" type="text" name="cname" placeholder="your english name" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="password" placeholder="don't use ez one:: 1234 or abcd" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email" placeholder="example@email.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="phone">Phone</label>
+                    <div class="phone-group">
+                        <select name="t_code" required>
+                            <option value="+66">TH (+66)</option>
+                            <option value="+65">SG (+65)</option>
+                            <option value="+1">US (+1)</option>
+                        </select>
+                        <input id="phone" type="tel" name="phone" placeholder="971493909" required>
+                    </div>
+                </div>
+
+
+                <p><b>Package</b></p>
+                <label>
+                    Standard
+                    <input type="radio" name="Package" value="Standard" required/>
+                </label>
+                <label>
+                    Premium
+                    <input type="radio" name="Package" value="Premium" required/>
+                </label>
+
+                <p><b>Interesting Content</b></p>
+                <label>
+                    Movie
+                    <input type="checkbox" name="Interesting Content" value="Movie">
+                </label>
+                <label>
+                    Music
+                    <input type="checkbox" name="Interesting Content" value="Music">
+                </label>
+                <label>
+                    Games
+                    <input type="checkbox" name="Interesting Content" value="Games">
+                </label>
+
+                <br>    
+                <br>
+                <button type="submit">Sign up</button>
+
+           </form>
+        </div>
+    </center>
+</body>
+</html>
